@@ -1,4 +1,4 @@
-# Multi-stage build for Aether Mailer - Linux Distro Container
+# Multi-stage build for Aether Vault - Linux Distro Container
 # Architecture: Next.js (3000) + Go Backend (8080) + PostgreSQL (5432) + SSH Management (2222)
 # FHS-compliant filesystem structure for container compatibility
 
@@ -77,61 +77,61 @@ RUN apk --no-cache add \
     findutils
 
 # Create application user
-RUN addgroup --system --gid 1001 mailer && \
-    adduser --system --uid 1001 --ingroup mailer mailer
+RUN addgroup --system --gid 1001 vault && \
+    adduser --system --uid 1001 --ingroup vault vault
 
 # Create SSH user with proper shell path
 RUN addgroup --system --gid 1002 ssh-users && \
-    adduser --system --uid 1002 --ingroup ssh-users --shell /usr/bin/mailer-shell.sh ssh-user && \
+    adduser --system --uid 1002 --ingroup ssh-users --shell /usr/bin/vault-shell.sh ssh-user && \
     echo "ssh-user:tempPassword123" | chpasswd
 
 # Create directories BEFORE copying files
 RUN mkdir -p /var/lib/postgresql/data /var/run/postgresql /var/log/postgresql && \
-    chown -R mailer:mailer /var/lib/postgresql /var/run/postgresql /var/log/postgresql
+    chown -R vault:vault /var/lib/postgresql /var/run/postgresql /var/log/postgresql
 
 WORKDIR /app
 
 # Copy built applications
-COPY --from=server-builder --chown=mailer:mailer /server/main ./server/
-COPY --from=frontend-builder --chown=mailer:mailer /app/app/.next/standalone ./
-COPY --from=frontend-builder --chown=mailer:mailer /app/app/.next/static ./.next/static
-COPY --from=frontend-builder --chown=mailer:mailer /app/cli/dist ./cli/
+COPY --from=server-builder --chown=vault:vault /server/main ./server/
+COPY --from=frontend-builder --chown=vault:vault /app/app/.next/standalone ./
+COPY --from=frontend-builder --chown=vault:vault /app/app/.next/static ./.next/static
+COPY --from=frontend-builder --chown=vault:vault /app/cli/dist ./cli/
 
 # Copy Linux distro filesystem structure
 COPY --chown=root:root docker/rootfs/ /
 
 # Copy configurations
-COPY --chown=mailer:mailer prisma/ ./prisma/
-COPY --chown=mailer:mailer docker-entrypoint.sh ./
+COPY --chown=vault:vault prisma/ ./prisma/
+COPY --chown=vault:vault docker-entrypoint.sh ./
 RUN chmod +x docker-entrypoint.sh
 
 # Install Prisma CLI globally and setup binaries
 RUN npm install -g prisma && \
-    ln -sf /app/cli/main.js /usr/local/bin/mailer && \
-    chmod +x /usr/local/bin/mailer
+    ln -sf /app/cli/main.js /usr/local/bin/vault && \
+    chmod +x /usr/local/bin/vault
 
 # Initialize container environment
 RUN /usr/bin/container-init.sh
 
 # Switch to application user
-USER mailer
+USER vault
 
 # Expose public ports
 EXPOSE 3000 2222
 
 # Environment variables (secrets should be provided at runtime)
-ARG POSTGRES_PASSWORD_ARG=mailer_postgres
+ARG POSTGRES_PASSWORD_ARG=vault_postgres
 ARG SSH_AUTH_SERVICE_URL_ARG=""
 ARG SSH_ENABLE_LOCAL_AUTH_ARG=true
 
 ENV NODE_ENV=production
 ENV GO_ENV=production
 ENV DATABASE_PROVIDER=postgresql
-ENV POSTGRES_DB=aether_mailer
-ENV POSTGRES_USER=mailer
+ENV POSTGRES_DB=aether_vault
+ENV POSTGRES_USER=vault
 ENV POSTGRES_PASSWORD=${POSTGRES_PASSWORD_ARG}
 ENV SSH_PORT=2222
-ENV SSH_USER=ssh-user
+ENV SSH_USER=vault-user
 ENV SSH_AUTH_SERVICE_URL=${SSH_AUTH_SERVICE_URL_ARG}
 ENV SSH_ENABLE_LOCAL_AUTH=${SSH_ENABLE_LOCAL_AUTH_ARG}
 ENV SSH_AUTH_SERVICE_URL=""

@@ -1,4 +1,4 @@
-# Aether Mailer - Docker Architecture
+# Aether Vault - Docker Architecture
 # Next.js (port 3000 public) + Caddy reverse proxy interne pour API vers backend (port 8080)
 
 {
