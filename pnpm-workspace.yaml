@@ -1,0 +1,15 @@
+packages:
+  - 'app'
+  - 'cli'
+  - 'tools'
+  - 'tests'
+  - 'options'
+  - 'snap'
+  - 'prisma'
+  - 'package/node'
+  - 'package/github'
+  - 'docs'
+
+ignoredBuiltDependencies:
+  - sharp
+  - unrs-resolver
