@@ -4,8 +4,8 @@ import { AuthProvider } from "@/context/JwtAuthContext";
 import { DashboardLayout } from "@/components/DashboardLayout";
 
 export const metadata: Metadata = {
-  title: "Aether Mailer",
-  description: "A modern, open-source email server built with Next.js",
+  title: "Aether Vault",
+  description: "A modern, open-source secrets and TOTP vault built with Next.js",
 };
 
 export default function RootLayout({
