@@ -1,11 +1,10 @@
 package middleware
 
 import (
-	"github.com/skygenesisenterprise/aether-vault/server/src/services"
 	"bytes"
 	"fmt"
+	"github.com/skygenesisenterprise/aether-vault/server/src/services"
 	"io"
-	"net/http"
 	"strings"
 	"time"
 

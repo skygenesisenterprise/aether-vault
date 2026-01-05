@@ -1,7 +1,6 @@
 package services
 
 import (
-	"github.com/skygenesisenterprise/aether-vault/server/src/model"
 	"crypto/aes"
 	"crypto/cipher"
 	"crypto/rand"
@@ -9,8 +8,8 @@ import (
 	"encoding/base64"
 	"errors"
 	"fmt"
+	"github.com/skygenesisenterprise/aether-vault/server/src/model"
 	"io"
-	"time"
 
 	"github.com/google/uuid"
 	"golang.org/x/crypto/pbkdf2"

@@ -3,7 +3,6 @@ package middleware
 import (
 	"crypto/rand"
 	"encoding/hex"
-	"fmt"
 )
 
 func generateRequestID() string {

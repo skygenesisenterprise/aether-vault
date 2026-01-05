@@ -4,7 +4,6 @@ import (
 	"github.com/skygenesisenterprise/aether-vault/server/src/model"
 	"github.com/skygenesisenterprise/aether-vault/server/src/services"
 	"net/http"
-	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"

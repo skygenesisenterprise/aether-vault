@@ -1,14 +1,13 @@
 package services
 
 import (
+	"fmt"
 	"github.com/skygenesisenterprise/aether-vault/server/src/config"
 	"github.com/skygenesisenterprise/aether-vault/server/src/model"
-	"fmt"
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/google/uuid"
-	"golang.org/x/crypto/bcrypt"
 )
 
 type AuthService struct {

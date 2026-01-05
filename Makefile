@@ -3,7 +3,7 @@
 
 .PHONY: help install clean reset dev build start test lint format typecheck
 .PHONY: quick-start status health docker db db-migrate db-studio db-seed
-.PHONY: go-server go-build go-test go-clean
+.PHONY: go-server go-build go-test go-clean go-install-deps go-secrets
 .PHONY: packages packages-dev packages-build packages-test
 .PHONY: github-app golang-sdk nodejs-sdk python-sdk
 
@@ -190,6 +190,18 @@ go-clean: ## Go - Clean Go build artifacts
 go-install-deps: ## Go - Install Go dependencies
 	@echo "$(BLUE)📦 Installing Go dependencies...$(RESET)"
 	@cd server && go mod download
+
+go-secrets: ## Go - Generate JWT and encryption secrets for .env.example
+	@echo "$(BLUE)🔐 Generating new secrets for server/.env.example...$(RESET)"
+	@echo "$(YELLOW)Generating JWT secret...$(RESET)"
+	@JWT_SECRET=$$(openssl rand -base64 32 | tr -d '\n'); \
+	ENCRYPTION_KEY=$$(openssl rand -base64 24 | tr -d '\n'); \
+	sed -i.tmp "s/VAULT_JWT_SECRET=.*/VAULT_JWT_SECRET=$$JWT_SECRET/" server/.env.example; \
+	sed -i.tmp "s/VAULT_SECURITY_ENCRYPTION_KEY=.*/VAULT_SECURITY_ENCRYPTION_KEY=$$ENCRYPTION_KEY/" server/.env.example; \
+	rm -f server/.env.example.tmp
+	@echo "$(GREEN)✅ Secrets generated and updated in server/.env.example$(RESET)"
+	@echo "$(YELLOW)JWT Secret: $$(grep VAULT_JWT_SECRET server/.env.example | cut -d'=' -f2)$(RESET)"
+	@echo "$(YELLOW)Encryption Key: $$(grep VAULT_SECURITY_ENCRYPTION_KEY server/.env.example | cut -d'=' -f2)$(RESET)"
 
 ## 🐳 Docker Commands
 docker-build: ## Docker - Build Docker image
