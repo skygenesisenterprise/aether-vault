@@ -1,0 +1,71 @@
+name: CI/CD Pipeline with Aether Vault
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Aether Vault Policy Check
+        uses: aether-office/aether-vault@v1
+        with:
+          vault-url: ${{ secrets.VAULT_URL }}
+          auth-method: github-oidc
+          role: security-scan
+          policy-mode: enforce
+        id: vault-security
+
+  build:
+    needs: security-scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Aether Vault Build Secrets
+        uses: aether-office/aether-vault@v1
+        with:
+          vault-url: ${{ secrets.VAULT_URL }}
+          auth-method: github-oidc
+          role: build-secrets
+          policy-mode: enforce
+          allow-token-output: true
+        id: vault-build
+
+      - name: Build Docker Image
+        run: |
+          echo "Building with vault context"
+          echo "Report ID: ${{ steps.vault-build.outputs.report-id }}"
+          docker build . --file Dockerfile --tag aether-vault:$(date +%s)
+        env:
+          VAULT_TOKEN: ${{ steps.vault-build.outputs.vault-token }}
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Aether Vault Deploy Access
+        uses: aether-office/aether-vault@v1
+        with:
+          vault-url: ${{ secrets.VAULT_URL }}
+          auth-method: github-oidc
+          role: deploy-access
+          policy-mode: enforce
+          allow-token-output: true
+        id: vault-deploy
+
+      - name: Deploy Application
+        run: |
+          echo "Deploying with production secrets"
+          echo "Vault token obtained for deployment"
+          # Deployment commands here
+        env:
+          VAULT_TOKEN: ${{ steps.vault-deploy.outputs.vault-token }}

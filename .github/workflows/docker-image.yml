@@ -2,17 +2,27 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v6
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag aether-mailer:$(date +%s)
+      - uses: actions/checkout@v6
+
+      - name: Aether Vault Security Check
+        uses: aether-office/aether-vault@v1
+        with:
+          vault-url: ${{ secrets.VAULT_URL }}
+          auth-method: github-oidc
+          role: docker-build
+          policy-mode: enforce
+        id: vault
+
+      - name: Build the Docker image
+        run: |
+          echo "Building with vault token: ${{ steps.vault.outputs.vault-token }}"
+          docker build . --file Dockerfile --tag aether-mailer:$(date +%s)
