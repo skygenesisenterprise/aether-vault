@@ -65,8 +65,19 @@ func LoadConfig() (*Config, error) {
 
 	viper.AutomaticEnv()
 	viper.SetEnvPrefix("VAULT")
+	// Bind environment variables explicitly to ensure proper mapping
+	viper.BindEnv("jwt.secret", "VAULT_JWT_SECRET")
+	viper.BindEnv("jwt.expiration", "VAULT_JWT_EXPIRATION")
+	viper.BindEnv("security.encryption_key", "VAULT_SECURITY_ENCRYPTION_KEY")
+	viper.BindEnv("security.kdf_iterations", "VAULT_SECURITY_KDF_ITERATIONS")
+	viper.BindEnv("security.salt_length", "VAULT_SECURITY_SALT_LENGTH")
 
 	setDefaults()
+
+	// Debug: Check if environment variables are loaded
+	jwtSecret := viper.GetString("jwt.secret")
+	fmt.Printf("DEBUG: JWT Secret from viper: '%s'\n", jwtSecret)
+	fmt.Printf("DEBUG: VAULT_JWT_SECRET env: '%s'\n", os.Getenv("VAULT_JWT_SECRET"))
 
 	if err := viper.ReadInConfig(); err != nil {
 		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
@@ -114,16 +125,19 @@ func validateConfig(config *Config) {
 		panic("Invalid server port")
 	}
 
-	if config.Database.Host == "" {
-		panic("Database host is required")
-	}
+	// Only require database in production
+	if config.Server.Environment == "production" {
+		if config.Database.Host == "" {
+			panic("Database host is required in production")
+		}
 
-	if config.Database.User == "" {
-		panic("Database user is required")
-	}
+		if config.Database.User == "" {
+			panic("Database user is required in production")
+		}
 
-	if config.Database.DBName == "" {
-		panic("Database name is required")
+		if config.Database.DBName == "" {
+			panic("Database name is required in production")
+		}
 	}
 
 	if config.JWT.Secret == "" {
