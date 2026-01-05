@@ -7,6 +7,7 @@ packages:
   - 'prisma'
   - 'package/node'
   - 'package/github'
+  - 'package/vscode'
   - 'docs'
 
 ignoredBuiltDependencies:

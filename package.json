@@ -10,6 +10,7 @@
     "options",
     "package/node",
     "package/github",
+    "package/vscode",
     "snap",
     "tests",
     "messages",
