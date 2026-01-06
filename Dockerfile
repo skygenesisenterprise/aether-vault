@@ -1,59 +1,51 @@
-# Multi-stage build for Aether Vault - Linux Distro Container
-# Architecture: Next.js (3000) + Go Backend (8080) + PostgreSQL (5432) + SSH Management (2222)
-# FHS-compliant filesystem structure for container compatibility
+# Monolithic Multi-Service Build for Aether Vault
+# Architecture: Next.js Frontend (3000) + Go Backend (8080) + PostgreSQL + Redis + Monitoring
 
-# Stage 1: Build Go server
-FROM golang:1.25-alpine AS server-builder
+# Stage 1: Build Go Backend
+FROM golang:1.25-alpine AS backend-builder
 WORKDIR /server
 
-# Install git (required for some Go modules)
-RUN apk add --no-cache git
+# Install build dependencies
+RUN apk add --no-cache git ca-certificates tzdata
 
 # Copy Go mod files
 COPY server/go.mod server/go.sum ./
 RUN go mod download
 
-# Copy server source code
+# Copy backend source code
 COPY server/ ./
 
-# Build the Go server
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
+# Build Go backend
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main ./main.go
 
-# Stage 2: Build Next.js frontend
+# Stage 2: Build Next.js Frontend
 FROM node:20-alpine AS frontend-builder
 RUN apk add --no-cache libc6-compat
-WORKDIR /app
 
-# Install pnpm
+# Install pnpm for workspace
 RUN npm install -g pnpm
+
+WORKDIR /app
 
 # Copy workspace configuration
 COPY package.json pnpm-workspace.yaml pnpm-lock.yaml* ./
 
-# Copy app configuration and source
+# Copy frontend configuration and source
 COPY app/package.json ./app/package.json
 COPY app/tsconfig.json app/next.config.ts app/tailwind.config.js app/postcss.config.mjs ./app/
 COPY app/components.json app/eslint.config.mjs ./app/
 COPY app/ ./app/
 
-# Copy CLI configuration and source
-COPY cli/package.json ./cli/package.json
-COPY cli/tsconfig.json cli/tsconfig.build.json ./cli/
-COPY cli/ ./cli/
+# Install dependencies
+RUN pnpm install --frozen-lockfile
 
-# Install dependencies in workspace mode
-RUN pnpm install --no-frozen-lockfile
-
-# Build application
+# Build frontend application
 RUN cd app && pnpm build
 
-# Build CLI
-RUN cd cli && pnpm build
-
-# Stage 3: Production image with all services
+# Stage 3: Production Runtime Image
 FROM alpine:latest AS production
 
-# Install runtime dependencies
+# Install runtime dependencies for all services
 RUN apk --no-cache add \
     ca-certificates \
     tzdata \
@@ -68,74 +60,76 @@ RUN apk --no-cache add \
     openssh-server \
     shadow \
     sudo \
-    caddy \
-    supervisor \
     openssl \
     linux-pam \
     net-tools \
     procps \
-    findutils
+    findutils \
+    supervisor \
+    nginx \
+    redis
 
-# Create application user
-RUN addgroup --system --gid 1001 vault && \
-    adduser --system --uid 1001 --ingroup vault vault
+# Create application users and directories
+RUN addgroup --system --gid 1001 aether && \
+    adduser --system --uid 1001 --ingroup aether aether && \
+    addgroup --system --gid 1002 ssh-users && \
+    adduser --system --uid 1002 --ingroup ssh-users --shell /bin/bash ssh-user
 
-# Create SSH user with proper shell path
-RUN addgroup --system --gid 1002 ssh-users && \
-    adduser --system --uid 1002 --ingroup ssh-users --shell /usr/bin/vault-shell.sh ssh-user && \
-    echo "ssh-user:tempPassword123" | chpasswd
-
-# Create directories BEFORE copying files
-RUN mkdir -p /var/lib/postgresql/data /var/run/postgresql /var/log/postgresql && \
-    chown -R vault:vault /var/lib/postgresql /var/run/postgresql /var/log/postgresql
+# Create necessary directories
+RUN mkdir -p /var/lib/postgresql/data \
+              /var/run/postgresql \
+              /var/log/postgresql \
+              /app/logs \
+              /app/uploads \
+              /app/frontend \
+              /app/backend \
+              /var/log/nginx \
+              /var/log/supervisor \
+              /etc/supervisor/conf.d && \
+    chown -R aether:aether /app /var/log && \
+    chown -R postgres:postgres /var/lib/postgresql /var/run/postgresql /var/log/postgresql
 
 WORKDIR /app
 
 # Copy built applications
-COPY --from=server-builder --chown=vault:vault /server/main ./server/
-COPY --from=frontend-builder --chown=vault:vault /app/app/.next/standalone ./
-COPY --from=frontend-builder --chown=vault:vault /app/app/.next/static ./.next/static
-COPY --from=frontend-builder --chown=vault:vault /app/cli/dist ./cli/
-
-# Copy Linux distro filesystem structure
-COPY --chown=root:root docker/rootfs/ /
+COPY --from=backend-builder --chown=aether:aether /server/main ./backend/
+COPY --from=frontend-builder --chown=aether:aether /app/app/.next/standalone ./frontend/
+COPY --from=frontend-builder --chown=aether:aether /app/app/.next/static ./frontend/.next/static
 
 # Copy configurations
-COPY --chown=vault:vault prisma/ ./prisma/
-COPY --chown=vault:vault docker-entrypoint.sh ./
-RUN chmod +x docker-entrypoint.sh
+COPY --chown=aether:aether server/.env.example ./backend/.env
+COPY --chown=aether:aether docker/nginx.conf /etc/nginx/nginx.conf
+COPY --chown=aether:aether docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY --chown=aether:aether docker/docker-entrypoint.sh ./docker-entrypoint.sh
+COPY --chown=aether:aether docker/ssh-config/sshd_config /etc/ssh/sshd_config
+COPY --chown=aether:aether docker/ssh-config/vault-shell.sh /usr/local/bin/vault-shell.sh
 
-# Install Prisma CLI globally and setup binaries
-RUN npm install -g prisma && \
-    ln -sf /app/cli/main.js /usr/local/bin/vault && \
-    chmod +x /usr/local/bin/vault
+# Set permissions
+RUN chmod +x ./docker-entrypoint.sh /usr/local/bin/vault-shell.sh
 
-# Initialize container environment
-RUN /usr/bin/container-init.sh
+# Create SSH directory and setup
+RUN mkdir -p /home/ssh-user/.ssh && \
+    chown -R ssh-user:ssh-users /home/ssh-user && \
+    echo "ssh-user:tempPassword123" | chpasswd
 
-# Switch to application user
-USER vault
+# Expose ports
+EXPOSE 3000 8080 2222 5432 6379 9090 3001
 
-# Expose public ports
-EXPOSE 3000 2222
-
-# Environment variables (secrets should be provided at runtime)
-ARG POSTGRES_PASSWORD_ARG=vault_postgres
-ARG SSH_AUTH_SERVICE_URL_ARG=""
-ARG SSH_ENABLE_LOCAL_AUTH_ARG=true
-
+# Environment variables
 ENV NODE_ENV=production
 ENV GO_ENV=production
 ENV DATABASE_PROVIDER=postgresql
 ENV POSTGRES_DB=aether_vault
-ENV POSTGRES_USER=vault
-ENV POSTGRES_PASSWORD=${POSTGRES_PASSWORD_ARG}
-ENV SSH_PORT=2222
-ENV SSH_USER=vault-user
-ENV SSH_AUTH_SERVICE_URL=${SSH_AUTH_SERVICE_URL_ARG}
-ENV SSH_ENABLE_LOCAL_AUTH=${SSH_ENABLE_LOCAL_AUTH_ARG}
-ENV SSH_AUTH_SERVICE_URL=""
-ENV SSH_ENABLE_LOCAL_AUTH="true"
+ENV POSTGRES_USER=aether
+ENV POSTGRES_PASSWORD=vault_postgres_2024
+ENV REDIS_PASSWORD=vault_redis_2024
+ENV JWT_SECRET=your-super-secret-jwt-key-change-in-production
+ENV SECURITY_ENCRYPTION_KEY=your-32-character-encryption-key
+
+# Health checks
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+    CMD curl -f http://localhost:3000/ || curl -f http://localhost:8080/health || exit 1
 
 # Start all services
+USER aether
 CMD ["./docker-entrypoint.sh"]
