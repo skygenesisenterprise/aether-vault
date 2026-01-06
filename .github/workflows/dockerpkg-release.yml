@@ -143,6 +143,7 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
+            type=raw,value=v${{ steps.version.outputs.version }}
             type=ref,event=tag,suffix=-runtime
             type=raw,value=latest,enable={{is_default_branch}}
             type=raw,value=latest
@@ -174,9 +175,14 @@ jobs:
             VERSION=${{ steps.version.outputs.version }}
             BUILD_DATE=${{ github.event.head_commit.timestamp }}
 
+      # Install Cosign for image signing
+      - name: Install Cosign
+        if: github.event_name != 'pull_request'
+        uses: sigstore/cosign-installer@v3.7.0
+
       # Sign the resulting Docker image digest except on PRs
       - name: Sign published Docker image
-        if: ${{ github.event_name != 'pull_request' }}
+        if: github.event_name != 'pull_request'
         env:
           # https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#using-an-intermediate-environment-variable
           TAGS: ${{ steps.meta.outputs.tags }}
@@ -199,7 +205,7 @@ jobs:
           if [ "${{ github.event_name }}" != 'pull_request' ]; then
             echo ""
             echo "🚀 Pull commands:"
-            echo "docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.version.outputs.version }}-runtime"
+            echo "docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:v${{ steps.version.outputs.version }}"
             echo "docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest"
           fi
 
@@ -217,7 +223,7 @@ jobs:
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.24.0
         with:
-          image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.build.outputs.version }}-runtime
+          image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:v${{ needs.build.outputs.version }}
           format: "sarif"
           output: "trivy-results.sarif"
 
@@ -241,12 +247,12 @@ jobs:
           echo "🧪 Testing Aether Vault Runtime on ${{ matrix.platform }}..."
 
           # Pull the built image
-          docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.build.outputs.version }}-runtime
+            docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:v${{ needs.build.outputs.version }}
 
           # Test basic functionality
           echo "Testing runtime help command..."
           docker run --rm \
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.build.outputs.version }}-runtime \
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:v${{ needs.build.outputs.version }} \
             --help || echo "Help command executed"
 
           # Test environment detection
@@ -254,7 +260,7 @@ jobs:
           docker run --rm \
             -e AETHER_SERVICE_NAME=test \
             -e AETHER_ENVIRONMENT=test \
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.build.outputs.version }}-runtime \
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:v${{ needs.build.outputs.version }} \
             echo "Runtime test successful" || echo "Environment test executed"
 
           echo "✅ Runtime test completed for ${{ matrix.platform }}"
@@ -284,7 +290,7 @@ jobs:
 
             🔒 **Zero-Environment-Variables Architecture** - Secure execution runtime that eliminates the need for developers to manage environment variables by dynamically injecting configuration from Aether Vault.
 
-            🐳 **Docker Image**: `${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.build.outputs.version }}-runtime`
+            🐳 **Docker Image**: `${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:v${{ needs.build.outputs.version }}`
 
             ### 🚀 Quick Start
 
@@ -295,7 +301,7 @@ jobs:
               -e AETHER_VAULT_TOKEN=${VAULT_TOKEN} \
               -e AETHER_SERVICE_NAME=my-app \
               -e AETHER_ENVIRONMENT=production \
-              ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.build.outputs.version }}-runtime \
+              ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:v${{ needs.build.outputs.version }} \
               node server.js
             ```
 
@@ -308,7 +314,7 @@ jobs:
             spec:
               containers:
               - name: app
-                image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.build.outputs.version }}-runtime
+                image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:v${{ needs.build.outputs.version }}
                 env:
                 - name: AETHER_VAULT_ADDR
                   value: "https://vault.company.com:8200"
