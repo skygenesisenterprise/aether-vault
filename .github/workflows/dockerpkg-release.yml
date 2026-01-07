@@ -289,7 +289,7 @@ jobs:
       # Build and push Docker image to Docker Hub
       - name: Build and push Docker image to Docker Hub
         id: docker-build
-        uses: docker/build-push-action@9e436ba9f2d7bcd1d038c8e55d039d37896ddc5d # v6.18.0
+        uses: docker/build-push-action@19e4966231440c674d1703ee1f8317d2394ab962 # v6.18.0
         with:
           context: ./package/docker
           file: ./package/docker/Dockerfile
@@ -308,7 +308,7 @@ jobs:
       # Build and push Docker image to GitHub Container Registry
       - name: Build and push Docker image to GHCR
         id: ghcr-build
-        uses: docker/build-push-action@9e436ba9f2d7bcd1d038c8e55d039d37896ddc5d # v6.18.0
+        uses: docker/build-push-action@19e4966231440c674d1703ee1f8317d2394ab962 # v6.18.0
         with:
           context: ./package/docker
           file: ./package/docker/Dockerfile
