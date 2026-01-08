@@ -85,7 +85,7 @@ jobs:
 
       - name: Publish to GitHub Packages
         working-directory: ./package/php
-        run: composer promote --verbose
+        run: composer publish --verbose
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
