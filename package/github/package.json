@@ -1,5 +1,6 @@
 {
   "name": "aether-vault",
+  "package": "@aether-vault/github",
   "version": "1.0.0",
   "description": "Aether Vault GitHub App for release orchestration and notifications",
   "main": "dist/index.js",

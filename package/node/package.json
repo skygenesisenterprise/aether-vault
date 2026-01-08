@@ -1,10 +1,7 @@
 {
   "name": "aether-vault",
   "package": "@aether-vault/node",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Official NodeJS SDK for Aether Vault - Unified secrets and TOTP management",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -17,8 +14,7 @@
     "test:dev": "jest --config jest.config.js",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
-    "clean": "rm -rf dist",
-    "prepublishOnly": "npm run clean && npm run build"
+    "clean": "rm -rf dist"
   },
   "keywords": [
     "vault",
