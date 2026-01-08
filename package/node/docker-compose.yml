@@ -1,0 +1,93 @@
+version: "3.8"
+
+services:
+  aether-vault-node:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    image: aether-vault/node:latest
+    container_name: aether-vault-node-sdk
+    restart: unless-stopped
+
+    # Environment variables
+    environment:
+      - NODE_ENV=production
+      - VAULT_ENDPOINT=${VAULT_ENDPOINT:-http://localhost:8080}
+      - VAULT_TOKEN=${VAULT_TOKEN:-}
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+
+    # Port mapping (if running as a service)
+    ports:
+      - "3000:3000"
+
+    # Volume mounts
+    volumes:
+      - ./config:/app/config:ro
+      - ./logs:/app/logs
+      - ${HOME}/.aether-vault:/app/.aether-vault:ro
+
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 256M
+        reservations:
+          cpus: "0.25"
+          memory: 128M
+
+    # Health check
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "console.log('Aether Vault Node.js SDK is healthy')",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+    # Network
+    networks:
+      - aether-vault-network
+
+    # Security
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /app/logs
+
+  # Optional: Redis for caching
+  redis:
+    image: redis:7-alpine
+    container_name: aether-vault-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - aether-vault-network
+    command: redis-server --appendonly yes --maxmemory 128mb --maxmemory-policy allkeys-lru
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+networks:
+  aether-vault-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
+volumes:
+  redis_data:
+    driver: local

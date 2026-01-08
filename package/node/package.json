@@ -1,6 +1,6 @@
 {
-  "name": "@aether-vault/node",
-  "package": "aether-vault",
+  "name": "aether-vault",
+  "package": "@aether-vault/node",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },

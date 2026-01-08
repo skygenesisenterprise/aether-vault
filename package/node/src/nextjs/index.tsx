@@ -25,9 +25,9 @@ export const DEFAULT_VAULT_CONFIG: Partial<VaultConfig> = {
  * @param config - Optional configuration overrides
  * @returns Configured AetherVaultClient instance
  */
-export function createNextVaultClient(
+export async function createNextVaultClient(
   config?: Partial<VaultConfig>,
-): AetherVaultClient {
+): Promise<AetherVaultClient> {
   const finalConfig: VaultConfig = {
     baseURL: config?.baseURL || DEFAULT_VAULT_CONFIG.baseURL!,
     auth: {
@@ -70,12 +70,22 @@ export function VaultProvider({
   children: React.ReactNode;
   config?: Partial<VaultConfig>;
 }) {
-  const [vault] = useState(() => createNextVaultClient(config));
+  const [vault, setVault] = useState<AetherVaultClient | null>(null);
+
+  useEffect(() => {
+    const initVault = async () => {
+      const vaultClient = await createNextVaultClient(config);
+      setVault(vaultClient);
+    };
+    initVault();
+  }, [config]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
   const checkAuth = useCallback(async () => {
+    if (!vault) return;
+
     try {
       setIsLoading(true);
       setError(null);
@@ -94,7 +104,7 @@ export function VaultProvider({
   }, [checkAuth]);
 
   const value: VaultContextValue = {
-    vault,
+    vault: vault!,
     isAuthenticated,
     isLoading,
     error,
