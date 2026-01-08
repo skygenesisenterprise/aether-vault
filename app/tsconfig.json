@@ -25,7 +25,8 @@
       "@/context/*": ["./context/*"],
       "@/lib/*": ["./lib/*"],
       "@/styles/*": ["./styles/*"],
-      "@/hook/*": ["./hook"]
+      "@/hook/*": ["./hook"],
+      "@/services/*": ["./services"]
     },
     "baseUrl": ".",
     "types": ["next", "node"],
