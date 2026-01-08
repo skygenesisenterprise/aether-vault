@@ -47,6 +47,7 @@ Quick start:
 	cmd.AddCommand(newAuthCommand())
 	cmd.AddCommand(newStatusCommand())
 	cmd.AddCommand(newHelpCommand())
+	cmd.AddCommand(newCapabilityCommand())
 
 	return cmd
 }
