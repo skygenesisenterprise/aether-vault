@@ -15,8 +15,9 @@ export class AuthClient {
    * @param client - VaultClient instance for HTTP requests
    * @param _config - Authentication configuration (kept for interface compatibility)
    */
-  constructor(client: VaultClient, _config: AuthConfig) {
+  constructor(client: VaultClient, config: AuthConfig) {
     this.client = client;
+    void config; // Mark as intentionally unused for interface compatibility
   }
 
   /**

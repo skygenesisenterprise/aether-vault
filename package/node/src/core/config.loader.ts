@@ -64,7 +64,7 @@ async function loadConfigFromFile(
     }
 
     return config as VaultConfigFile;
-  } catch (error) {
+  } catch {
     // Config file not found or invalid - return null to fallback to env vars
     return null;
   }

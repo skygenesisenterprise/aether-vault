@@ -1,7 +1,7 @@
 {
   "name": "aether-vault",
   "package": "@aether-vault/node",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Official NodeJS SDK for Aether Vault - Unified secrets and TOTP management",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -11,7 +11,6 @@
     "dev": "tsc --watch",
     "test": "echo 'Tests disabled - use npm run test:dev for development'",
     "test:watch": "echo 'Tests disabled - use npm run test:dev for development'",
-    "test:dev": "jest --config jest.config.js",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "clean": "rm -rf dist"
