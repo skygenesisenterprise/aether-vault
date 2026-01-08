@@ -1,0 +1,94 @@
+[package]
+name = "aether-vault"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.75"
+authors = ["Sky Genesis Enterprise <developer@skygenesisenterprise.com>"]
+license = "MIT"
+repository = "https://github.com/skygenesisenterprise/aether-vault"
+homepage = "https://skygenesisenterprise.com"
+documentation = "https://wiki.skygenesisenterprise.com/vault/rust"
+description = "Aether Vault SDK - Security & Secrets Operating System"
+keywords = ["security", "secrets", "vault", "zero-trust", "devops"]
+categories = ["cryptography", "network-programming", "api-bindings"]
+
+[dependencies]
+# Async runtime
+tokio = { version = "1.0", features = ["full"] }
+tokio-util = { version = "0.7", features = ["codec"] }
+
+# HTTP client
+reqwest = { version = "0.11", features = ["json", "rustls-tls"] }
+hyper = { version = "0.14", features = ["full"] }
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+toml = "0.8"
+
+# Cryptography (no custom crypto)
+ring = "0.16"
+rustls = "0.21"
+x509-parser = "0.15"
+
+# Time & TTL
+chrono = { version = "0.4", features = ["serde"] }
+time = "0.3"
+
+# Error handling
+thiserror = "1.0"
+anyhow = "1.0"
+
+# Logging & Tracing
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+# Configuration
+config = "0.13"
+
+# UUID for capability IDs
+uuid = { version = "1.0", features = ["v4", "serde"] }
+
+# Unix sockets
+tokio-uds = "0.2"
+
+# mTLS support
+tokio-rustls = "0.24"
+rustls-pemfile = "1.0"
+
+[dev-dependencies]
+tempfile = "3.0"
+mockito = "1.0"
+criterion = "0.5"
+
+[features]
+default = ["client", "transport-http"]
+client = []
+transport-http = []
+transport-unix = []
+transport-mtls = []
+full = ["client", "transport-http", "transport-unix", "transport-mtls"]
+
+[[example]]
+name = "basic_client"
+required-features = ["client"]
+
+[[example]]
+name = "capability_request"
+required-features = ["client"]
+
+[[example]]
+name = "identity_workload"
+required-features = ["client"]
+
+[[bench]]
+name = "capability_validation"
+harness = false
+
+[lib]
+name = "aether_vault"
+path = "src/lib.rs"
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]
