@@ -1,0 +1,111 @@
+name: Aether Vault PHP Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*-php"
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
+          coverage: none
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate --strict
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+
+      - name: Run tests
+        run: composer test
+
+      - name: Build package
+        run: composer archive --format=zip --file=${{ github.event.repository.name }}-${{ github.ref_name }}
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository }}
+          tags: |
+            type=ref,event=tag
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./package/php
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Extract release notes
+        id: release_notes
+        run: |
+          if [ -f "package/php/RELEASE_NOTES.md" ]; then
+            echo "notes<<EOF" >> $GITHUB_OUTPUT
+            cat package/php/RELEASE_NOTES.md >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          else
+            echo "notes<<EOF" >> $GITHUB_OUTPUT
+            echo "# Release ${{ github.ref_name }}" >> $GITHUB_OUTPUT
+            echo "" >> $GITHUB_OUTPUT
+            echo "## 📦 Package Information" >> $GITHUB_OUTPUT
+            echo "- **Package**: aether-vault/sdk-php" >> $GITHUB_OUTPUT
+            echo "- **Version**: ${{ github.ref_name }}" >> $GITHUB_OUTPUT
+            echo "- **PHP Version**: >= 8.1" >> $GITHUB_OUTPUT
+            echo "" >> $GITHUB_OUTPUT
+            echo "## 🚀 Installation" >> $GITHUB_OUTPUT
+            echo '```bash' >> $GITHUB_OUTPUT
+            echo 'composer require aether-vault/sdk-php' >> $GITHUB_OUTPUT
+            echo '```' >> $GITHUB_OUTPUT
+            echo "" >> $GITHUB_OUTPUT
+            echo "## 🐳 Docker Usage" >> $GITHUB_OUTPUT
+            echo '```bash' >> $GITHUB_OUTPUT
+            echo "docker pull ghcr.io/${{ github.repository }}:${{ github.ref_name }}" >> $GITHUB_OUTPUT
+            echo '```' >> $GITHUB_OUTPUT
+            echo "" >> $GITHUB_OUTPUT
+            echo "## 📚 Documentation" >> $GITHUB_OUTPUT
+            echo "For detailed documentation, please visit the [README](https://github.com/${{ github.repository }}/blob/main/package/php/README.md)" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            ${{ github.event.repository.name }}-${{ github.ref_name }}.zip
+          body: ${{ steps.release_notes.outputs.notes }}
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

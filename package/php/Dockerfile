@@ -5,7 +5,12 @@ WORKDIR /app
 
 # Copy composer files
 COPY composer.json ./
-COPY composer.lock ./
+
+# Generate composer.lock if it doesn't exist
+RUN composer install --no-interaction --optimize-autoloader
+
+# Install production dependencies
+RUN composer install --no-dev --optimize-autoloader --no-interaction
 
 # Install dependencies
 RUN composer install --no-dev --optimize-autoloader --no-interaction
