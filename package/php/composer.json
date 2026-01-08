@@ -1,5 +1,5 @@
 {
-  "name": "aether-vault/sdk-php",
+  "name": "aether-vault/sdk",
   "description": "Secure Aether Vault SDK for PHP applications",
   "type": "library",
   "keywords": [

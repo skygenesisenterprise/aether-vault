@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
       target: production
-    image: aether-vault/php:latest
+    image: ghcr.io/${GITHUB_REPOSITORY_OWNER:-your-github-username}/aether-vault:latest
     container_name: aether-vault-php-sdk
     restart: unless-stopped
 
