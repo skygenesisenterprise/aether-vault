@@ -29,7 +29,7 @@
     "precommit": "prisma format && prisma validate && npm run generate"
   },
   "dependencies": {
-    "@prisma/client": "^5.22.0",
+    "@prisma/client": "^7.2.0",
     "redis": "^4.7.0",
     "argon2": "^0.31.0",
     "bcryptjs": "^3.0.3",
