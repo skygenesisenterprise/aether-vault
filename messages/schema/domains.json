@@ -1,0 +1,58 @@
+{
+  "domains": {
+    "auth": {
+      "description": "Authentication and authorization messages",
+      "target_sdks": ["all"],
+      "security_level": "high",
+      "variables": ["token", "user_id", "session_id", "ip_address"]
+    },
+    "vault": {
+      "description": "Secrets management and encryption messages",
+      "target_sdks": ["all"],
+      "security_level": "critical",
+      "variables": ["secret_id", "environment", "policy_name"]
+    },
+    "identity": {
+      "description": "User profile and identity management messages",
+      "target_sdks": ["all"],
+      "security_level": "medium",
+      "variables": ["user_id", "profile_id", "role"]
+    },
+    "policy": {
+      "description": "Security policies and permissions messages",
+      "target_sdks": ["admin", "cli"],
+      "security_level": "high",
+      "variables": ["policy_name", "rule_id", "permission"]
+    },
+    "network": {
+      "description": "Network communication and HTTP messages",
+      "target_sdks": ["all"],
+      "security_level": "low",
+      "variables": ["endpoint", "status_code", "timeout"]
+    },
+    "cli": {
+      "description": "Command-line interface specific messages",
+      "target_sdks": ["cli"],
+      "security_level": "low",
+      "variables": ["command", "argument", "exit_code"]
+    },
+    "sdk": {
+      "description": "SDK-specific internal messages",
+      "target_sdks": ["node", "golang", "python"],
+      "security_level": "low",
+      "variables": ["sdk_version", "method", "class"]
+    },
+    "audit": {
+      "description": "Audit trail and security logging messages",
+      "target_sdks": ["admin"],
+      "security_level": "critical",
+      "variables": ["timestamp", "action", "resource", "user_id"]
+    }
+  },
+  "security_levels": {
+    "critical": "Messages involving secrets, encryption keys, or sensitive security operations",
+    "high": "Messages involving authentication, authorization, or security policies",
+    "medium": "Messages involving user data or identity information",
+    "low": "Messages involving general operations or debugging information"
+  }
+}

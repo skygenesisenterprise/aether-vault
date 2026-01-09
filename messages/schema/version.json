@@ -1,0 +1,21 @@
+{
+  "version": "1.0.0",
+  "schema_version": "1.0.0",
+  "last_updated": "2024-01-09T00:00:00Z",
+  "supported_languages": ["en", "fr", "de"],
+  "default_language": "en",
+  "fallback_language": "en",
+  "compatibility": {
+    "min_sdk_version": "1.0.0",
+    "deprecated_versions": [],
+    "breaking_changes": []
+  },
+  "checksums": {
+    "schema": "sha256:placeholder",
+    "messages": {
+      "en": "sha256:placeholder",
+      "fr": "sha256:placeholder",
+      "de": "sha256:placeholder"
+    }
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Aether Vault Message Schema",
+  "description": "Schema for validating Aether Vault internationalization messages",
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "pattern": "^[A-Z][A-Z0-9_]*$",
+        "description": "Unique message identifier"
+      },
+      "domain": {
+        "type": "string",
+        "enum": [
+          "auth",
+          "vault",
+          "identity",
+          "policy",
+          "network",
+          "cli",
+          "sdk",
+          "audit"
+        ],
+        "description": "Functional domain"
+      },
+      "type": {
+        "type": "string",
+        "enum": ["user", "audit", "debug"],
+        "description": "Message type"
+      },
+      "severity": {
+        "type": "string",
+        "enum": ["info", "warning", "error", "critical"],
+        "description": "Message severity level"
+      },
+      "template": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Message template with variable placeholders"
+      },
+      "variables": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "uniqueItems": true,
+        "description": "List of variable names used in template"
+      },
+      "context": {
+        "type": "object",
+        "properties": {
+          "http_status": {
+            "type": "integer",
+            "minimum": 100,
+            "maximum": 599
+          },
+          "error_code": {
+            "type": "string",
+            "pattern": "^[A-Z][A-Z0-9_]*$"
+          }
+        },
+        "additionalProperties": true,
+        "description": "Additional context information"
+      },
+      "metadata": {
+        "type": "object",
+        "properties": {
+          "added_version": {
+            "type": "string",
+            "pattern": "^\\d+\\.\\d+\\.\\d+$"
+          },
+          "deprecated": {
+            "type": "boolean"
+          },
+          "security_sensitive": {
+            "type": "boolean"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "required": ["added_version"],
+        "additionalProperties": false,
+        "description": "Message metadata"
+      }
+    },
+    "required": [
+      "id",
+      "domain",
+      "type",
+      "severity",
+      "template",
+      "variables",
+      "metadata"
+    ],
+    "additionalProperties": false
+  }
+}
