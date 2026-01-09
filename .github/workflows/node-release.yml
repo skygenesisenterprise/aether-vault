@@ -18,7 +18,7 @@ jobs:
           node-version: 20
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v3
+        uses: pnpm/action-setup@v4
         with:
           version: 8
 
@@ -51,7 +51,7 @@ jobs:
           registry-url: https://registry.npmjs.org/
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v3
+        uses: pnpm/action-setup@v4
         with:
           version: 8
 
@@ -85,7 +85,7 @@ jobs:
           registry-url: https://npm.pkg.github.com/
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v3
+        uses: pnpm/action-setup@v4
         with:
           version: 8
 
