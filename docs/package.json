@@ -105,7 +105,7 @@
     "framer-motion": "^11.3.2",
     "gray-matter": "^4.0.3",
     "lucide-react": "^0.400.0",
-    "next": "14.2.5",
+    "next": "14.2.35",
     "next-contentlayer": "^0.3.4",
     "next-mdx-remote": "^4.4.1",
     "next-seo": "^6.5.0",
