@@ -1,0 +1,187 @@
+# Aether Vault Documentation Configuration
+
+## Site Information
+title: "Aether Vault Documentation"
+description: "Comprehensive documentation for Aether Vault digital vault platform"
+url: "https://wiki.skygenesisenterprise.com"
+baseurl: ""
+
+## Theme Configuration
+theme: "dark"
+logo: "/assets/logo.svg"
+favicon: "/assets/favicon.ico"
+
+## Build Settings
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    block:
+      line_numbers: false
+
+## Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jekyll-toc
+  - jekyll-last-modified-at
+
+## Collections
+collections:
+  docs:
+    output: true
+    permalink: /:collection/:name/
+  api:
+    output: true
+    permalink: /:collection/:name/
+  guides:
+    output: true
+    permalink: /:collection/:name/
+
+## Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "docs"
+    values:
+      layout: "docs"
+      toc: true
+  - scope:
+      path: ""
+      type: "api"
+    values:
+      layout: "api"
+      toc: true
+  - scope:
+      path: ""
+      type: "guides"
+    values:
+      layout: "guide"
+      toc: true
+
+## Navigation
+navigation:
+  main:
+    - title: "Getting Started"
+      url: "/docs/getting-started"
+      children:
+        - title: "Installation"
+          url: "/docs/installation"
+        - title: "Quick Start"
+          url: "/docs/quick-start"
+        - title: "Configuration"
+          url: "/docs/configuration"
+    - title: "API Reference"
+      url: "/api/overview"
+      children:
+        - title: "Authentication"
+          url: "/api/authentication"
+        - title: "Endpoints"
+          url: "/api/endpoints"
+        - title: "Models"
+          url: "/api/models"
+    - title: "Guides"
+      url: "/guides/overview"
+      children:
+        - title: "Security"
+          url: "/guides/security"
+        - title: "Deployment"
+          url: "/guides/deployment"
+        - title: "Troubleshooting"
+          url: "/guides/troubleshooting"
+
+## Search Configuration
+search:
+  enabled: true
+  provider: "algolia"
+  app_id: "${ALGOLIA_APP_ID}"
+  api_key: "${ALGOLIA_SEARCH_API_KEY}"
+  index_name: "aether-vault-docs"
+
+## Analytics
+analytics:
+  google: "GA_MEASUREMENT_ID"
+  plausible: "wiki.skygenesisenterprise.com"
+
+## Social Links
+social:
+  twitter: "@aethervault"
+  github: "skygenesisenterprise/aether-vault"
+  discord: "https://discord.gg/aethervault"
+
+## SEO
+seo:
+  type: "website"
+  locale: "en_US"
+  image: "/assets/og-image.png"
+  twitter_card: "summary_large_image"
+
+## Performance
+performance:
+  enable_javascript: true
+  enable_css_minification: true
+  enable_html_minification: true
+  enable_gzip: true
+
+## Security
+security:
+  csp:
+    default_src: "'self'"
+    script_src: "'self' 'unsafe-inline' https://cdn.jsdelivr.net"
+    style_src: "'self' 'unsafe-inline' https://fonts.googleapis.com"
+    font_src: "'self' https://fonts.gstatic.com"
+    img_src: "'self' data: https:"
+  headers:
+    X-Frame-Options: "DENY"
+    X-Content-Type-Options: "nosniff"
+    X-XSS-Protection: "1; mode=block"
+    Strict-Transport-Security: "max-age=31536000; includeSubDomains"
+
+## Development
+development:
+  host: "localhost"
+  port: 4000
+  livereload: true
+  incremental: true
+
+## Exclude Files
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - .git
+  - .gitignore
+  - README.md
+  - package.json
+  - package-lock.json
+  - yarn.lock
+  - pnpm-lock.yaml
+  - tsconfig.json
+  - next.config.js
+  - next.config.ts
+  - tailwind.config.js
+  - tailwind.config.ts
+  - postcss.config.js
+  - .next
+  - out
+  - dist
+
+## Include Files
+include:
+  - _pages
+  - _data
+  - _layouts
+  - _includes
+  - _sass
+  - assets
+
+## Sass Configuration
+sass:
+  style: compressed
+  sass_dir: _sass
+  load_paths:
+    - node_modules
