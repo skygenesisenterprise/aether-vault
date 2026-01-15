@@ -119,8 +119,8 @@ importers:
   docs:
     dependencies:
       '@next/bundle-analyzer':
-        specifier: ^14.2.5
-        version: 14.2.35
+        specifier: ^16.1.2
+        version: 16.1.2
       '@next/mdx':
         specifier: ^16.1.1
         version: 16.1.1
@@ -3591,8 +3591,8 @@ packages:
     dev: true
     optional: true
 
-  /@next/bundle-analyzer@14.2.35:
-    resolution: {integrity: sha512-br772Uozk44eJq3a0Z+sTyNII+29d7ue1a0s4xd+9MlUQl3HhKo/wLqxZPFngMbwr6YnAWh/uKoVEpEOV35Fzw==}
+  /@next/bundle-analyzer@16.1.2:
+    resolution: {integrity: sha512-WTwoRTCmU5BKAizao2lKBkbeJDpsdgF/rrkSnFQye7ni8ybtM/aYzka8N+QqGug5UBBm4ddRkIwxMF7vWCreFw==}
     dependencies:
       webpack-bundle-analyzer: 4.10.1
     transitivePeerDependencies:
