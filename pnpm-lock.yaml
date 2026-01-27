@@ -19,7 +19,7 @@ importers:
         version: 7.3.0(prisma@7.2.0)(typescript@5.9.3)
       '@radix-ui/react-slot':
         specifier: ^1.2.4
-        version: 1.2.4(@types/react@18.3.27)(react@18.3.1)
+        version: 1.2.4(@types/react@19.2.10)(react@19.2.4)
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -53,7 +53,7 @@ importers:
         version: 3.8.1
       prisma:
         specifier: 7.2.0
-        version: 7.2.0(@types/react@18.3.27)(react-dom@18.3.1)(react@18.3.1)(typescript@5.9.3)
+        version: 7.2.0(@types/react@19.2.10)(react-dom@19.2.4)(react@19.2.4)(typescript@5.9.3)
       typescript:
         specifier: ^5
         version: 5.9.3
@@ -4384,16 +4384,16 @@ packages:
   /@prisma/query-plan-executor@6.18.0:
     resolution: {integrity: sha512-jZ8cfzFgL0jReE1R10gT8JLHtQxjWYLiQ//wHmVYZ2rVkFHoh0DT8IXsxcKcFlfKN7ak7k6j0XMNn2xVNyr5cA==}
 
-  /@prisma/studio-core@0.9.0(@types/react@18.3.27)(react-dom@18.3.1)(react@18.3.1):
+  /@prisma/studio-core@0.9.0(@types/react@19.2.10)(react-dom@19.2.4)(react@19.2.4):
     resolution: {integrity: sha512-xA2zoR/ADu/NCSQuriBKTh6Ps4XjU0bErkEcgMfnSGh346K1VI7iWKnoq1l2DoxUqiddPHIEWwtxJ6xCHG6W7g==}
     peerDependencies:
       '@types/react': ^18.0.0 || ^19.0.0
       react: ^18.0.0 || ^19.0.0
       react-dom: ^18.0.0 || ^19.0.0
     dependencies:
-      '@types/react': 18.3.27
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
+      '@types/react': 19.2.10
+      react: 19.2.4
+      react-dom: 19.2.4(react@19.2.4)
     dev: true
 
   /@prisma/studio-core@0.9.0(@types/react@19.2.7)(react-dom@19.2.3)(react@19.2.3):
@@ -4643,6 +4643,19 @@ packages:
     dependencies:
       '@types/react': 18.3.27
       react: 18.3.1
+    dev: false
+
+  /@radix-ui/react-compose-refs@1.1.2(@types/react@19.2.10)(react@19.2.4):
+    resolution: {integrity: sha512-z4eqJvfiNnFMHIIvXP3CY57y2WJs5g2v3X0zm9mEJkrkNv4rDxu+sg9Jh8EkXyeqBkB7SOcboo9dMVqhyrACIg==}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@types/react': 19.2.10
+      react: 19.2.4
     dev: false
 
   /@radix-ui/react-context@1.1.2(@types/react@18.3.27)(react@18.3.1):
@@ -5251,6 +5264,20 @@ packages:
       '@radix-ui/react-compose-refs': 1.1.2(@types/react@18.3.27)(react@18.3.1)
       '@types/react': 18.3.27
       react: 18.3.1
+    dev: false
+
+  /@radix-ui/react-slot@1.2.4(@types/react@19.2.10)(react@19.2.4):
+    resolution: {integrity: sha512-Jl+bCv8HxKnlTLVrcDE8zTMJ09R9/ukw4qBs/oZClOfoQk/cOTbDn+NceXfV7j09YPVQUryJPHurafcSg6EVKA==}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@radix-ui/react-compose-refs': 1.1.2(@types/react@19.2.10)(react@19.2.4)
+      '@types/react': 19.2.10
+      react: 19.2.4
     dev: false
 
   /@radix-ui/react-switch@1.2.6(@types/react-dom@18.3.7)(@types/react@18.3.27)(react-dom@18.3.1)(react@18.3.1):
@@ -6489,6 +6516,11 @@ packages:
     resolution: {integrity: sha512-cisd7gxkzjBKU2GgdYrTdtQx1SORymWyaAFhaxQPK9bYO9ot3Y5OikQRvY0VYQtvwjeQnizCINJAenh/V7MK2w==}
     dependencies:
       '@types/prop-types': 15.7.15
+      csstype: 3.2.3
+
+  /@types/react@19.2.10:
+    resolution: {integrity: sha512-WPigyYuGhgZ/cTPRXB2EwUw+XvsRA3GqHlsP4qteqrnnjDrApbS7MxcGr/hke5iUoeB7E/gQtrs9I37zAJ0Vjw==}
+    dependencies:
       csstype: 3.2.3
 
   /@types/react@19.2.7:
@@ -16235,7 +16267,7 @@ packages:
     optionalDependencies:
       fsevents: 2.3.3
 
-  /prisma@7.2.0(@types/react@18.3.27)(react-dom@18.3.1)(react@18.3.1)(typescript@5.9.3):
+  /prisma@7.2.0(@types/react@19.2.10)(react-dom@19.2.4)(react@19.2.4)(typescript@5.9.3):
     resolution: {integrity: sha512-jSdHWgWOgFF24+nRyyNRVBIgGDQEsMEF8KPHvhBBg3jWyR9fUAK0Nq9ThUmiGlNgq2FA7vSk/ZoCvefod+a8qg==}
     engines: {node: ^20.19 || ^22.12 || >=24.0}
     hasBin: true
@@ -16252,7 +16284,7 @@ packages:
       '@prisma/config': 7.2.0
       '@prisma/dev': 0.17.0(typescript@5.9.3)
       '@prisma/engines': 7.2.0
-      '@prisma/studio-core': 0.9.0(@types/react@18.3.27)(react-dom@18.3.1)(react@18.3.1)
+      '@prisma/studio-core': 0.9.0(@types/react@19.2.10)(react-dom@19.2.4)(react@19.2.4)
       mysql2: 3.15.3
       postgres: 3.4.7
       typescript: 5.9.3
@@ -16491,6 +16523,15 @@ packages:
       react: 19.2.3
       scheduler: 0.27.0
 
+  /react-dom@19.2.4(react@19.2.4):
+    resolution: {integrity: sha512-AXJdLo8kgMbimY95O2aKQqsz2iWi9jMgKJhRBAxECE4IFxfcazB2LmzloIoibJI3C12IlY20+KFaLv+71bUJeQ==}
+    peerDependencies:
+      react: ^19.2.4
+    dependencies:
+      react: 19.2.4
+      scheduler: 0.27.0
+    dev: true
+
   /react-highlight@0.15.0:
     resolution: {integrity: sha512-5uV/b/N4Z421GSVVe05fz+OfTsJtFzx/fJBdafZyw4LS70XjIZwgEx3Lrkfc01W/RzZ2Dtfb0DApoaJFAIKBtA==}
     dependencies:
@@ -16604,6 +16645,10 @@ packages:
 
   /react@19.2.3:
     resolution: {integrity: sha512-Ku/hhYbVjOQnXDZFv2+RibmLFGwFdeeKHFcOTlrt7xplBnya5OGn/hIRDsqDiSUcfORsDC7MPxwork8jBwsIWA==}
+    engines: {node: '>=0.10.0'}
+
+  /react@19.2.4:
+    resolution: {integrity: sha512-9nfp2hYpCwOjAN+8TZFGhtWEwgvWHXqESH8qT89AT/lWklpLON22Lc8pEtnpsZz7VmawabSU0gCjnj8aC0euHQ==}
     engines: {node: '>=0.10.0'}
 
   /read-cache@1.0.0:
