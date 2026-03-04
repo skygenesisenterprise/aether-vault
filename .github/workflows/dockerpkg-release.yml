@@ -246,7 +246,7 @@ jobs:
       # Login to Docker Hub registry except on PR
       - name: Log into Docker Hub
         if: github.event_name != 'pull_request'
-        uses: docker/login-action@5e57cd118135c172c3672efd75eb46360885c0ef # v3.6.0
+        uses: docker/login-action@b45d80f862d83dbcd57f89517bcf500b2ab88fb2 # v4.0.0
         with:
           registry: ${{ env.DOCKER_REGISTRY }}
           username: ${{ secrets.DOCKER_USERNAME }}
@@ -255,7 +255,7 @@ jobs:
       # Login to GitHub Container Registry
       - name: Log into GitHub Container Registry
         if: github.event_name != 'pull_request'
-        uses: docker/login-action@5e57cd118135c172c3672efd75eb46360885c0ef # v3.6.0
+        uses: docker/login-action@b45d80f862d83dbcd57f89517bcf500b2ab88fb2 # v4.0.0
         with:
           registry: ${{ env.GHCR_REGISTRY }}
           username: ${{ github.actor }}
