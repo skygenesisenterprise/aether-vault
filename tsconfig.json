@@ -1,13 +1,6 @@
 {
   "files": [],
-  "references": [
-    { "path": "./app" },
-    { "path": "./tools" },
-    { "path": "./options" },
-    { "path": "./snap" },
-    { "path": "./tests" },
-    { "path": "./prisma"}
-  ],
+  "references": [{ "path": "./app" }],
   "compilerOptions": {
     "target": "ES2017",
     "lib": ["dom", "dom.iterable", "esnext"],
