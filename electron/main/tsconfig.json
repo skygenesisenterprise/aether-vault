@@ -1,0 +1,14 @@
+{
+  "include": ["."],
+  "compilerOptions": {
+    "lib": ["ESNext"],
+    "jsx": "preserve",
+    "target": "ESNext",
+    "outDir": "../dist",
+    "skipLibCheck": true,
+    "useDefineForClassFields": true,
+    "module": "CommonJS",
+    "resolveJsonModule": true,
+    "isolatedModules": true
+  }
+}

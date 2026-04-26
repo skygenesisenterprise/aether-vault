@@ -3,13 +3,13 @@ packages:
   - "tools"
   - "tests"
   - "options"
-  - "snap"
-  - "prisma"
+  - "electron"
+  - "package/snap"
+  - "server/prisma"
   - "package/node"
   - "package/github"
   - "package/vscode"
-  - "package/cli/web"
-  - "docs"
+  - "package/cli"
 
 ignoredBuiltDependencies:
   - sharp
