@@ -1,132 +1,55 @@
 import type { NextConfig } from "next";
+import createNextIntlPlugin from "next-intl/plugin";
+
+const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
+
+const isProduction = process.env.NODE_ENV === "production";
 
 const nextConfig: NextConfig = {
+  allowedDevOrigins: ["mail.skygenesisenterprise.com", "192.168.1.3"],
+
   reactStrictMode: true,
   poweredByHeader: false,
 
-  // Required for Docker standalone output
-  output: "standalone",
+  ...(isProduction && {
+    output: "standalone",
+    ...(process.env.ASSET_PREFIX && { assetPrefix: process.env.ASSET_PREFIX }),
+  }),
+
+  basePath: process.env.BASE_PATH || "",
 
   images: {
     remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "vault.skygenesisenterprise.com",
-        port: "",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "vault.skygenesisenterprise.net",
-        port: "",
-        pathname: "/**",
-      },
-      {
-        protocol: "http",
-        hostname: "127.0.0.0",
-        port: "",
-        pathname: "/**",
-      },
-      {
-        protocol: "http",
-        hostname: "localhost",
-        port: "",
-        pathname: "/**",
-      },
+      { protocol: "https", hostname: "mail.skygenesisenterprise.com", pathname: "/**" },
+      { protocol: "https", hostname: "api.dicebear.com", pathname: "/**" },
+      { protocol: "https", hostname: "avatars.githubusercontent.com", pathname: "/**" },
+      { protocol: "https", hostname: "images.unsplash.com", pathname: "/**" },
+      { protocol: "http", hostname: "127.0.0.1", pathname: "/**" },
+      { protocol: "http", hostname: "localhost", pathname: "/**" },
     ],
-    unoptimized: false,
-  },
-
-  async rewrites() {
-    // Configuration robuste pour développement et production
-    const isProduction = process.env.NODE_ENV === "production";
-
-    // Déterminer l'URL du backend selon l'environnement
-    let backendUrl: string;
-
-    if (process.env.BACKEND_URL) {
-      // Priorité à la variable d'environnement explicite
-      backendUrl = process.env.BACKEND_URL;
-    } else if (isProduction) {
-      // En production, utiliser l'URL de l'API ou fallback
-      backendUrl = process.env.API_BASE_URL || "https://api.yourdomain.com";
-    } else {
-      // En développement, utiliser localhost
-      backendUrl = "http://localhost:8080";
-    }
-
-    // Validation de l'URL
-    try {
-      new URL(backendUrl);
-    } catch (error) {
-      console.error("❌ Invalid backend URL:", backendUrl, error);
-      // Fallback sécurisé
-      backendUrl = "http://localhost:8080";
-    }
-
-    const rewrites = [
-      // Proxy API v1 routes (priorité haute)
-      {
-        source: "/api/v1/:path*",
-        destination: `${backendUrl}/api/v1/:path*`,
-      },
-
-      // Proxy health check
-      {
-        source: "/health",
-        destination: `${backendUrl}/health`,
-      },
-
-      // Proxy OIDC well-known endpoints
-      {
-        source: "/.well-known/:path*",
-        destination: `${backendUrl}/.well-known/:path*`,
-      },
-
-      // Proxy autres routes API (fallback)
-      {
-        source: "/api/:path*",
-        destination: `${backendUrl}/:path*`,
-      },
-    ];
-
-    console.log("📝 Rewrites configured:", rewrites.length, "rules");
-    return rewrites;
   },
 
   async headers() {
-    const isProduction = process.env.NODE_ENV === "production";
+    const headers = [{ key: "Referrer-Policy", value: "origin-when-cross-origin" }];
 
-    const baseHeaders = [
-      { key: "X-Content-Type-Options", value: "nosniff" },
-      { key: "Referrer-Policy", value: "origin-when-cross-origin" },
-      { key: "X-XSS-Protection", value: "1; mode=block" },
-    ];
-
-    // Headers spécifiques à l'environnement
     if (isProduction) {
-      baseHeaders.push(
-        { key: "X-Frame-Options", value: "DENY" },
-        {
-          key: "Strict-Transport-Security",
-          value: "max-age=31536000; includeSubDomains",
-        },
-        {
-          key: "Permissions-Policy",
-          value: "camera=(), microphone=(), geolocation=()",
-        },
+      headers.push(
+        { key: "X-Content-Type-Options", value: "nosniff" },
+        { key: "X-Frame-Options", value: "DENY" }
       );
-    } else {
-      baseHeaders.push({ key: "X-Frame-Options", value: "SAMEORIGIN" });
     }
 
+    return [{ source: "/(.*)", headers }];
+  },
+
+  async rewrites() {
     return [
       {
-        source: "/(.*)",
-        headers: baseHeaders,
+        source: "/api/:path*",
+        destination: "http://localhost:8080/api/:path*",
       },
     ];
   },
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);

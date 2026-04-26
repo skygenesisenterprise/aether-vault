@@ -14,15 +14,13 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>("system");
+  const [theme, setThemeState] = useState<Theme>("dark");
   const [resolvedTheme, setResolvedTheme] = useState<"dark" | "light">("dark");
 
   // Fonction pour déterminer le thème résolu
   const getResolvedTheme = (theme: Theme): "dark" | "light" => {
     if (theme === "system") {
-      return window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light";
+      return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
     }
     return theme;
   };
@@ -32,18 +30,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const resolved = getResolvedTheme(theme);
     setResolvedTheme(resolved);
 
-    // Appliquer les classes au document
+    // Appliquer les classes au document (seulement si explicitement dark)
     document.documentElement.classList.remove("dark", "light");
-    document.documentElement.classList.add(resolved);
+    if (resolved === "dark") {
+      document.documentElement.classList.add("dark");
+    }
 
     // Sauvegarder dans localStorage
     localStorage.setItem("aether-mail-theme", theme);
   };
 
   useEffect(() => {
-    // Charger le thème depuis localStorage au montage
-    const savedTheme =
-      (localStorage.getItem("aether-mail-theme") as Theme) || "system";
+    // Charger le thème depuis localStorage au montage (défaut: dark)
+    const savedTheme = (localStorage.getItem("aether-mail-theme") as Theme) || "dark";
     setThemeState(savedTheme);
     applyTheme(savedTheme);
 
@@ -76,9 +75,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <ThemeContext.Provider
-      value={{ theme, resolvedTheme, setTheme, toggleTheme }}
-    >
+    <ThemeContext.Provider value={{ theme, resolvedTheme, setTheme, toggleTheme }}>
       {children}
     </ThemeContext.Provider>
   );
