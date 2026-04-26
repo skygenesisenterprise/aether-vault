@@ -17,10 +17,10 @@ const fontMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: {
     template: "%s | Sky Genesis Enterprise",
-    default: "Aether Mail ",
+    default: "Aether Vault",
   },
   description:
-    "An lightweight, open-source email client built for privacy, speed, and seamless integration within the Aether Office ecosystem",
+    "An open-source secrets and TOTP vault designed as a security control plane for developers.",
   icons: {
     icon: [
       {
