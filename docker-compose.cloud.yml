@@ -1,10 +1,10 @@
 services:
-  aethermail:
+  aethervault:
     build:
       context: .
       dockerfile: Dockerfile.cloud
-    image: aethermail:latest
-    container_name: aethermail
+    image: skygenesisenterprise/aethervault:latest
+    container_name: aethervault
     restart: unless-stopped
     expose:
       - "3000"

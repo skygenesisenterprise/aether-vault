@@ -2,7 +2,7 @@
 set -e
 
 # =============================================================================
-# Aether Identity - Service Entry Point
+# Aether Vault - Service Entry Point
 # =============================================================================
 
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/go/bin:/go/bin:/root/go/bin:$HOME/.local/share/corepack/shims:$HOME/.local/bin"
@@ -51,7 +51,7 @@ log_error() {
 display_header() {
     echo ""
     echo "╔══════════════════════════════════════════════════════════════════════╗"
-    echo "║                    Aether Identity                                   ║"
+    echo "║                        Aether Vault                                  ║"
     echo "║               Enterprise Account Management                          ║"
     echo "║                   Version 1.0.0-alpha                                ║"
     echo "╚══════════════════════════════════════════════════════════════════════╝"
