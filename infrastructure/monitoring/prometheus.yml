@@ -11,31 +11,31 @@ alerting:
         - targets: []
 
 scrape_configs:
-  - job_name: 'prometheus'
+  - job_name: "prometheus"
     static_configs:
-      - targets: ['localhost:9090']
+      - targets: ["localhost:9090"]
 
-  - job_name: 'aether-mailer-server'
+  - job_name: "aether-mailer-server"
     static_configs:
-      - targets: ['host.docker.internal:9464']
+      - targets: ["host.docker.internal:9464"]
     scrape_interval: 5s
-    metrics_path: '/metrics'
+    metrics_path: "/metrics"
 
-  - job_name: 'node-exporter'
+  - job_name: "node-exporter"
     static_configs:
-      - targets: ['node-exporter:9100']
+      - targets: ["node-exporter:9100"]
 
-  - job_name: 'cadvisor'
+  - job_name: "cadvisor"
     static_configs:
-      - targets: ['cadvisor:8080']
+      - targets: ["cadvisor:8080"]
 
-  - job_name: 'aether-mailer-frontend'
+  - job_name: "aether-mailer-frontend"
     static_configs:
-      - targets: ['host.docker.internal:3000']
-    metrics_path: '/api/metrics'
+      - targets: ["host.docker.internal:3000"]
+    metrics_path: "/api/metrics"
     scrape_interval: 10s
 
-  - job_name: 'postgres'
+  - job_name: "postgres"
     static_configs:
-      - targets: ['host.docker.internal:5432']
+      - targets: ["host.docker.internal:5432"]
     scrape_interval: 30s

@@ -1,67 +1,51 @@
 <div align="center">
 
-# 🏗️ Aether Vault Infrastructure
+# 🏗️ Aether Identity Infrastructure
 
-[![License](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)](https://github.com/skygenesisenterprise/aether-vault/blob/main/LICENSE) [![Docker](https://img.shields.io/badge/Docker-Ready-blue?style=for-the-badge&logo=docker)](https://www.docker.com/) [![Kubernetes](https://img.shields.io/badge/Kubernetes-Ready-326ce5?style=for-the-badge&logo=kubernetes)](https://kubernetes.io/) [![Redis](https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis)](https://redis.io/) [![Monitoring](https://img.shields.io/badge/Monitoring-Prometheus%20%2B%20Grafana-orange?style=for-the-badge)](https://prometheus.io/)
+[![Infrastructure](https://img.shields.io/badge/Infrastructure-As_Code-blue?style=for-the-badge&logo=terraform)](https://www.terraform.io/) [![Docker](https://img.shields.io/badge/Docker-Containerization-blue?style=for-the-badge&logo=docker)](https://www.docker.com/) [![Kubernetes](https://img.shields.io/badge/Kubernetes-Orchestration-blue?style=for-the-badge&logo=kubernetes)](https://kubernetes.io/) [![Redis](https://img.shields.io/badge/Redis-Caching-red?style=for-the-badge&logo=redis)](https://redis.io/) [![Monitoring](https://img.shields.io/badge/Monitoring-Prometheus_Grafana-orange?style=for-the-badge&logo=grafana)](https://grafana.com/)
 
-**🔧 Complete Infrastructure Foundation - Production-Ready Deployment with Monitoring & Caching**
+**🔥 Complete Infrastructure Foundation for Aether Identity Platform**
 
-A comprehensive infrastructure layer for Aether Vault that provides **production-ready deployment**, **monitoring**, **caching**, and **orchestration** capabilities. Built with **Docker**, **Kubernetes**, **Redis**, and complete **observability stack**.
+Production-ready infrastructure configurations with Docker containerization, Kubernetes deployment, Redis caching, monitoring stack, and comprehensive deployment automation for the Aether Identity ecosystem.
 
-[🚀 Quick Start](#-quick-start) • [📋 Components](#-components) • [🐳 Docker](#-docker) • [☸️ Kubernetes](#️-kubernetes) • [🗄️ Redis](#️-redis) • [📊 Monitoring](#-monitoring) • [🛠️ Development](#️-development)
+[🚀 Quick Start](#-quick-start) • [📁 Components](#-components) • [🐳 Docker](#-docker-deployment) • [☸️ Kubernetes](#-kubernetes-deployment) • [🗄️ Redis](#-redis-caching) • [📊 Monitoring](#-monitoring-stack) • [🔧 Configuration](#-configuration-management)
 
 </div>
 
 ---
 
-## 🌟 What is Aether Vault Infrastructure?
+## 🌟 What is Aether Identity Infrastructure?
 
-**Aether Vault Infrastructure** is a comprehensive infrastructure foundation that provides all the necessary components for deploying, monitoring, and maintaining Aether Vault in production environments.
+**Aether Identity Infrastructure** provides a comprehensive, production-ready deployment foundation for the Aether Identity platform. This modular infrastructure package includes everything needed for development, staging, and production deployments with enterprise-grade reliability and security.
 
-### 🎯 Key Components
+### 🎯 Key Features
 
 - **🐳 Docker Containerization** - Production-ready containers with multi-stage builds
-- **☸️ Kubernetes Deployment** - Cloud-native orchestration with manifests and configs
-- **🗄️ Redis Caching** - High-performance caching with environment-specific configurations
-- **📊 Observability Stack** - Prometheus + Grafana + Loki for complete monitoring
-- **🔧 Development Environment** - Local development setups with hot reload
-- **🚀 Production Deployment** - Optimized configurations for production workloads
+- **☸️ Kubernetes Orchestration** - Cloud-native deployment with auto-scaling
+- **🗄️ Redis Caching Layer** - High-performance session and cache management
+- **📊 Monitoring Stack** - Prometheus, Grafana, and Loki for observability
+- **🌐 NGINX Reverse Proxy** - Load balancing and SSL termination
+- **🔧 Environment Management** - Dev, test, and production configurations
+- **🛡️ Security Hardening** - Production-ready security configurations
+- **📋 Deployment Automation** - Terraform scripts and CI/CD integration
 
 ---
 
-## 📊 Current Status
+## 📊 Infrastructure Status
 
-> **✅ Production Ready**: Complete infrastructure layer with monitoring and caching.
+> **✅ Production Ready**: Complete infrastructure stack tested and deployed
 
 ### ✅ **Implemented Components**
 
-#### 🐳 **Docker Infrastructure**
-
-- ✅ **Multi-stage Dockerfiles** - Optimized builds for development and production
-- ✅ **Docker Compose** - Complete orchestration for local development
-- ✅ **Entry Scripts** - Configurable entry points for different environments
-- ✅ **Health Checks** - Container health monitoring and readiness probes
-
-#### ☸️ **Kubernetes Deployment**
-
-- ✅ **Kubernetes Manifests** - Complete deployment configurations
-- ✅ **Service Definitions** - Load balancing and service discovery
-- ✅ **ConfigMaps & Secrets** - Configuration management
-- ✅ **Ingress Configuration** - External access routing
-
-#### 🗄️ **Redis Caching**
-
-- ✅ **Environment-Specific Configs** - Development, testing, and production configurations
-- ✅ **Performance Tuning** - Optimized Redis settings for different workloads
-- ✅ **Persistence Configuration** - Data persistence and backup strategies
-- ✅ **Security Settings** - Authentication and network security
-
-#### 📊 **Monitoring & Observability**
-
-- ✅ **Prometheus Metrics** - Comprehensive metrics collection
-- ✅ **Grafana Dashboards** - Beautiful visualization and monitoring
-- ✅ **Loki Logging** - Centralized log aggregation
-- ✅ **Promtail Collection** - Efficient log shipping
+| Component                | Status        | Technology                   | Purpose              |
+| ------------------------ | ------------- | ---------------------------- | -------------------- |
+| **Docker Configuration** | ✅ Working    | Multi-stage builds           | Container deployment |
+| **Docker Compose**       | ✅ Working    | Development orchestration    | Local development    |
+| **Redis Configuration**  | ✅ Working    | Environment-specific configs | Caching & sessions   |
+| **Monitoring Stack**     | ✅ Working    | Prometheus + Grafana + Loki  | Observability        |
+| **NGINX Proxy**          | ✅ Working    | Reverse proxy                | Load balancing       |
+| **Kubernetes**           | 📋 Configured | Cloud deployment             | Production scaling   |
+| **Terraform**            | 📋 Configured | Infrastructure as code       | Cloud resources      |
 
 ---
 
@@ -69,601 +53,728 @@ A comprehensive infrastructure layer for Aether Vault that provides **production
 
 ### 📋 Prerequisites
 
-- **Docker** 20.10.0 or higher
-- **Docker Compose** 2.0.0 or higher
+- **Docker** 20.0+ and Docker Compose v2.0+
+- **Node.js** 18.0+ for infrastructure scripts
 - **Kubernetes** cluster (for production deployment)
-- **kubectl** configured for your cluster
-- **Helm** 3.0.0 or higher (optional, for package management)
+- **Terraform** 1.6+ (for cloud resource management)
+- **Make** (for command shortcuts)
 
-### 🔧 Quick Development Setup
+### 🔧 Installation & Setup
 
-1. **Clone and navigate to infrastructure**
+1. **Infrastructure setup**
 
-   ```bash
-   cd infrastructure
-   ```
+```bash
+# Navigate to infrastructure directory
+cd infrastructure
 
-2. **Start development environment**
+# Install dependencies
+npm install
 
-   ```bash
-   # Start all services with Docker Compose
-   docker-compose -f docker-compose.dev.yml up -d
+# Copy environment templates
+cp .env.example .env.local
+# Edit .env.local with your configuration
+```
 
-   # Or use the make command from root
-   make docker-dev
-   ```
+2. **Quick development deployment**
 
-3. **Verify services are running**
+```bash
+# One-command development setup
+make dev-up
 
-   ```bash
-   # Check service status
-   docker-compose -f docker-compose.dev.yml ps
+# Start all services
+docker-compose -f docker/docker-compose.dev.yml up -d
 
-   # View logs
-   docker-compose -f docker-compose.dev.yml logs -f
-   ```
+# Check service health
+make health-check
+```
 
-### 🌐 Access Points
+3. **Access points**
 
-Once running, you can access:
-
-- **Application**: [http://localhost:3000](http://localhost:3000)
-- **API Server**: [http://localhost:8080](http://localhost:8080)
+- **Frontend**: [http://localhost:3001](http://localhost:3001)
+- **Backend API**: [http://localhost:8081](http://localhost:8081)
 - **Redis**: [localhost:6379](localhost:6379)
-- **Grafana**: [http://localhost:3001](http://localhost:3001) (admin/admin)
+- **Grafana**: [http://localhost:3000](http://localhost:3000) (admin/admin)
 - **Prometheus**: [http://localhost:9090](http://localhost:9090)
+
+### 🎯 **Enhanced Make Commands**
+
+```bash
+# 🚀 Development & Deployment
+make dev-up              # Start development environment
+make dev-down            # Stop development environment
+make dev-restart         # Restart development services
+make dev-logs            # Show development logs
+
+# 🐳 Docker Management
+make docker-build        # Build all Docker images
+make docker-up           # Start production containers
+make docker-down         # Stop production containers
+make docker-clean        # Clean Docker artifacts
+
+# 🗄️ Redis Management
+make redis-start         # Start Redis service
+make redis-stop          # Stop Redis service
+make redis-cli           # Connect to Redis CLI
+make redis-backup        # Create Redis backup
+
+# 📊 Monitoring
+make monitoring-start    # Start monitoring stack
+make monitoring-stop     # Stop monitoring stack
+make grafana-dashboard   # Open Grafana dashboard
+
+# ☸️ Kubernetes Deployment
+make k8s-deploy          # Deploy to Kubernetes
+make k8s-status          # Check cluster status
+make k8s-logs            # Show pod logs
+make k8s-cleanup         # Clean Kubernetes resources
+
+# 🔧 Configuration
+make dotenv              # Generate .env files
+make validate            # Validate configurations
+make security-audit      # Run security audit
+```
 
 ---
 
-## 📋 Components
+## 📁 Components
 
-### 🐳 Docker Containerization
+### 🐳 **Docker Containerization**
 
-#### **Development Environment**
+Production-ready Docker configuration with multi-environment support:
 
-```yaml
-# docker-compose.dev.yml
-services:
-  app:
-    build:
-      context: ..
-      dockerfile: infrastructure/docker/Dockerfile.dev
-    ports:
-      - "3000:3000"
-    volumes:
-      - ..:/app
-      - /app/node_modules
-    environment:
-      - NODE_ENV=development
+```
+docker/
+├── docker-compose.yml          # Production orchestration
+├── docker-compose.dev.yml      # Development setup
+├── Dockerfile                  # Multi-stage application build
+├── Dockerfile.dev              # Development configuration
+└── .dockerignore              # Build exclusions
 ```
 
-#### **Production Environment**
+**Key Features**:
 
-```yaml
-# docker-compose.yml
-services:
-  app:
-    build:
-      context: ..
-      dockerfile: infrastructure/docker/Dockerfile
-    ports:
-      - "3000:3000"
-    environment:
-      - NODE_ENV=production
-    restart: unless-stopped
+- ✅ Multi-stage builds for optimized images
+- ✅ Environment-specific configurations
+- ✅ Health checks and graceful shutdowns
+- ✅ Volume mounting for persistent data
+- ✅ Network isolation and service discovery
+
+### 🗄️ **Redis Caching Layer**
+
+High-performance Redis configuration with environment-specific optimizations:
+
+```
+redis/
+├── redis.conf                  # Base configuration
+├── redis-dev.conf             # Development setup
+├── redis-prod.conf            # Production hardened
+├── redis-test.conf            # Testing isolated
+└── README.md                  # Comprehensive documentation
 ```
 
-#### **Dockerfiles**
+**Data Architecture**:
 
-- **Dockerfile** - Production-optimized multi-stage build
-- **Dockerfile.dev** - Development build with hot reload
-- **docker-entrypoint.sh** - Production entry script
-- **docker-entrypoint-dev.sh** - Development entry script
+- **User Sessions**: `session:*` keys with 24h TTL
+- **API Cache**: `cache:*` keys with 1h TTL
+- **Rate Limiting**: `rate-limit:*` with 15min windows
+- **Email Queue**: `email-queue:*` for mail processing
+- **User Preferences**: `user-prefs:*` for settings storage
 
-### ☸️ Kubernetes Deployment
+### 📊 **Monitoring Stack**
 
-#### **Core Manifests**
+Complete observability solution with Prometheus, Grafana, and Loki:
+
+```
+monitoring/
+├── docker-compose.monitoring.yml  # Monitoring services
+├── prometheus.yml                # Prometheus configuration
+├── loki.yml                      # Log aggregation
+├── promtail.yml                  # Log collection
+├── grafana/                      # Grafana dashboards
+│   └── provisioning/
+│       └── datasources/
+│           └── datasources.yml
+└── README.md                     # Monitoring guide
+```
+
+**Monitoring Components**:
+
+- **Prometheus**: Metrics collection and alerting
+- **Grafana**: Visualization and dashboards
+- **Loki**: Log aggregation and retention
+- **Promtail**: Log collection and forwarding
+- **Health Checks**: Service endpoint monitoring
+
+### 🌐 **NGINX Reverse Proxy**
+
+Load balancing and SSL termination configuration:
+
+```
+web/
+└── nginx.conf                   # Production proxy config
+```
+
+**NGINX Features**:
+
+- ✅ Load balancing across app instances
+- ✅ SSL/TLS termination
+- ✅ Static asset serving
+- ✅ Request rate limiting
+- ✅ Health check endpoints
+
+### ☸️ **Kubernetes Deployment**
+
+Cloud-native deployment manifests and configurations:
+
+```
+k8s/
+├── namespace.yaml               # Namespace isolation
+├── configmap.yaml              # Configuration management
+├── secret.yaml                 # Secret management
+├── deployment.yaml             # Application deployment
+├── service.yaml                # Service exposure
+├── ingress.yaml                # External routing
+└── README.md                   # Deployment guide
+```
+
+**Kubernetes Features**:
+
+- ✅ Horizontal Pod Autoscaling
+- ✅ Rolling updates and rollbacks
+- ✅ Health probes and liveness checks
+- ✅ Resource limits and requests
+- ✅ Network policies and security
+
+---
+
+## 🐳 Docker Deployment
+
+### 🏗️ **Development Environment**
+
+```bash
+# Start development stack
+docker-compose -f docker/docker-compose.dev.yml up -d
+
+# Build and start specific service
+docker-compose -f docker/docker-compose.dev.yml up -d aether-app
+
+# View logs
+docker-compose -f docker/docker-compose.dev.yml logs -f aether-app
+
+# Stop all services
+docker-compose -f docker/docker-compose.dev.yml down
+```
+
+### 🚀 **Production Environment**
+
+```bash
+# Production deployment
+docker-compose -f docker/docker-compose.yml up -d
+
+# Scale services
+docker-compose -f docker/docker-compose.yml up -d --scale aether-app=3
+
+# Health check
+docker-compose -f docker/docker-compose.yml ps
+
+# Cleanup
+docker-compose -f docker/docker-compose.yml down -v
+```
+
+### 📋 **Docker Services**
+
+| Service           | Port   | Description          | Health Check   |
+| ----------------- | ------ | -------------------- | -------------- |
+| **aether-app**    | 3001   | Frontend application | HTTP /         |
+| **aether-server** | 8081   | Backend API          | HTTP /health   |
+| **postgres**      | 5432   | Database             | pg_isready     |
+| **redis**         | 6379   | Cache layer          | redis-cli ping |
+| **nginx**         | 80/443 | Reverse proxy        | HTTP /         |
+
+---
+
+## 🗄️ Redis Caching
+
+### ⚡ **Environment-Specific Configurations**
+
+```bash
+# Development - Fast with debugging
+redis-server redis/redis-dev.conf
+
+# Production - Secure and optimized
+redis-server redis/redis-prod.conf
+
+# Testing - Isolated and lightweight
+redis-server redis/redis-test.conf
+```
+
+### 📊 **Data Structures & Patterns**
+
+#### **Session Management**
+
+```typescript
+// Key: session:{sessionId}
+// Type: Hash
+// TTL: 86400 (24h production)
+await client.hset(`session:${sessionId}`, {
+  userId,
+  email,
+  role,
+  createdAt,
+  lastAccessAt,
+  ipAddress,
+  userAgent,
+});
+```
+
+#### **API Response Caching**
+
+```typescript
+// Key: cache:{endpoint}:{params_hash}
+// Type: String (JSON)
+// TTL: 3600 (1h production)
+await client.setex(cacheKey, 3600, JSON.stringify(data));
+```
+
+#### **Rate Limiting**
+
+```typescript
+// Key: rate-limit:{userId}:{endpoint}
+// Type: String
+// TTL: 900 (15min production)
+await client.incr(rateLimitKey);
+await client.expire(rateLimitKey, 900);
+```
+
+#### **Email Queue System**
+
+```typescript
+// Key: email-queue:{priority}
+// Type: List
+// Process with Go goroutines for high throughput
+await client.lpush("email-queue:high", JSON.stringify(emailJob));
+```
+
+### 🛡️ **Security Features**
+
+- **Authentication**: Password-protected Redis connections
+- **Command Renaming**: Dangerous commands obfuscated in production
+- **Network Isolation**: Redis in private network with firewall rules
+- **TLS Support**: Encrypted connections ready to enable
+- **Access Control**: Limited client connections and permissions
+
+---
+
+## 📊 Monitoring Stack
+
+### 🔍 **Observability Components**
+
+```bash
+# Start monitoring stack
+docker-compose -f monitoring/docker-compose.monitoring.yml up -d
+
+# Access dashboards
+# Grafana: http://localhost:3000 (admin/admin)
+# Prometheus: http://localhost:9090
+# Loki: http://localhost:3100
+```
+
+### 📈 **Monitoring Capabilities**
+
+#### **Application Metrics**
+
+- Request throughput and response times
+- Error rates and status codes
+- Database connection pools and query performance
+- Redis cache hit/miss ratios
+- Memory and CPU utilization
+
+#### **Infrastructure Metrics**
+
+- Container resource usage
+- Pod health and restart counts
+- Network traffic and latency
+- Disk I/O and storage utilization
+- Load balancer performance
+
+#### **Log Management**
+
+- Structured logging with correlation IDs
+- Centralized log aggregation
+- Log retention and archival
+- Real-time log streaming
+- Alert-based log notifications
+
+#### **Security Monitoring**
+
+- Authentication failures and suspicious activities
+- Rate limiting violations
+- CORS and security header validation
+- Network access patterns
+- File system integrity monitoring
+
+---
+
+## ☸️ Kubernetes Deployment
+
+### 🚀 **Production Deployment**
+
+```bash
+# Initialize Kubernetes cluster
+make k8s-init
+
+# Deploy application stack
+make k8s-deploy
+
+# Monitor deployment status
+make k8s-status
+
+# Access application
+kubectl port-forward svc/aether-app 3001:80
+```
+
+### 📋 **Kubernetes Resources**
 
 ```yaml
-# k8s/deployment.yaml
+# Namespace isolation
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: aether-identity
+  labels:
+    name: aether-identity
+
+# Application deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: aether-vault
+  name: aether-app
+  namespace: aether-identity
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: aether-vault
+      app: aether-app
   template:
     metadata:
       labels:
-        app: aether-vault
+        app: aether-app
     spec:
       containers:
-        - name: app
-          image: aether-vault:latest
-          ports:
-            - containerPort: 3000
+      - name: aether-app
+        image: aether-identity/app:latest
+        ports:
+        - containerPort: 3000
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 5
 ```
 
-#### **Service Configuration**
+### 🔄 **CI/CD Integration**
 
 ```yaml
-# k8s/service.yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: aether-vault-service
-spec:
-  selector:
-    app: aether-vault
-  ports:
-    - port: 80
-      targetPort: 3000
-  type: LoadBalancer
-```
+# .github/workflows/kubernetes.yml
+name: Deploy to Kubernetes
+on:
+  push:
+    branches: [main]
 
-### 🗄️ Redis Caching
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
 
-#### **Environment-Specific Configurations**
+      - name: Setup kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: "v1.24.0"
 
-```bash
-# redis-dev.conf - Development
-port 6379
-bind 127.0.0.1
-save 900 1
-save 300 10
-save 60 10000
+      - name: Configure kubectl
+        run: |
+          echo "${{ secrets.KUBE_CONFIG }}" | base64 -d > kubeconfig
+          export KUBECONFIG=kubeconfig
 
-# redis-prod.conf - Production
-port 6379
-bind 0.0.0.0
-maxmemory 2gb
-maxmemory-policy allkeys-lru
-save 900 1
-save 300 10
-save 60 10000
-```
-
-#### **Redis Docker Service**
-
-```yaml
-services:
-  redis:
-    image: redis:7-alpine
-    ports:
-      - "6379:6379"
-    volumes:
-      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
-      - redis-data:/data
-    command: redis-server /usr/local/etc/redis/redis.conf
-```
-
-### 📊 Monitoring Stack
-
-#### **Prometheus Configuration**
-
-```yaml
-# monitoring/prometheus.yml
-global:
-  scrape_interval: 15s
-scrape_configs:
-  - job_name: "aether-vault"
-    static_configs:
-      - targets: ["app:3000"]
-  - job_name: "redis"
-    static_configs:
-      - targets: ["redis:6379"]
-```
-
-#### **Grafana Dashboards**
-
-```yaml
-# monitoring/grafana/provisioning/datasources/datasources.yml
-apiVersion: 1
-datasources:
-  - name: Prometheus
-    type: prometheus
-    access: proxy
-    url: http://prometheus:9090
-```
-
-#### **Log Aggregation**
-
-```yaml
-# monitoring/loki.yml
-auth_enabled: false
-
-server:
-  http_listen_port: 3100
-
-ingester:
-  lifecycler:
-    address: 127.0.0.1
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl apply -f infrastructure/k8s/
+          kubectl rollout status deployment/aether-app -n aether-identity
 ```
 
 ---
 
-## 🛠️ Development
+## 🔧 Configuration Management
 
-### 🎯 **Development Workflow**
-
-```bash
-# Start development environment
-make docker-dev
-
-# View logs
-make docker-logs
-
-# Stop services
-make docker-stop
-
-# Rebuild containers
-make docker-rebuild
-
-# Access container shell
-make docker-shell
-```
-
-### 🐳 **Docker Commands**
+### 📋 **Environment Configuration**
 
 ```bash
-# Build images
-docker build -f infrastructure/docker/Dockerfile.dev -t aether-vault:dev .
+# Development setup
+make dotenv-dev
 
-# Run specific service
-docker-compose -f docker-compose.dev.yml up app
+# Production setup
+make dotenv-prod
 
-# Scale services
-docker-compose -f docker-compose.yml up -d --scale app=3
+# Validate configurations
+make validate-config
 
-# Clean up
-docker-compose -f docker-compose.yml down -v
+# Security audit
+make security-audit
 ```
 
-### ☸️ **Kubernetes Commands**
+### 🌐 **Environment Variables**
 
 ```bash
-# Deploy to Kubernetes
-kubectl apply -f k8s/
+# .env.local template
 
-# Check deployment status
-kubectl get pods -l app=aether-vault
-
-# View logs
-kubectl logs -f deployment/aether-vault
-
-# Scale deployment
-kubectl scale deployment aether-vault --replicas=5
-
-# Update deployment
-kubectl set image deployment/aether-vault app=aether-vault:v2.0.0
-```
-
-### 📊 **Monitoring Commands**
-
-```bash
-# Access monitoring dashboards
-make monitoring-up
-
-# Check Prometheus targets
-curl http://localhost:9090/api/v1/targets
-
-# View Grafana dashboards
-open http://localhost:3001
-
-# Query logs
-curl -G "http://localhost:3100/loki/api/v1/query_range" \
-  --data-urlencode 'query="{job=\"aether-vault\"}"'
-```
-
-### 🗄️ **Redis Management**
-
-```bash
-# Connect to Redis CLI
-docker-compose -f docker-compose.dev.yml exec redis redis-cli
-
-# Monitor Redis
-docker-compose -f docker-compose.dev.yml exec redis redis-cli MONITOR
-
-# Check Redis info
-docker-compose -f docker-compose.dev.yml exec redis redis-cli INFO
-
-# Backup Redis data
-docker-compose -f docker-compose.dev.yml exec redis redis-cli BGSAVE
-```
-
----
-
-## 🏗️ Production Deployment
-
-### 🚀 **Production Setup**
-
-1. **Environment Configuration**
-
-   ```bash
-   # Copy production environment template
-   cp .env.example .env.production
-
-   # Configure production values
-   vim .env.production
-   ```
-
-2. **Build and Deploy**
-
-   ```bash
-   # Build production images
-   docker build -f infrastructure/docker/Dubernetes.yml -t aether-vault:latest .
-
-   # Deploy to production
-   docker-compose -f docker-compose.yml up -d
-   ```
-
-3. **Kubernetes Production Deployment**
-
-   ```bash
-   # Apply production manifests
-   kubectl apply -f k8s/
-
-   # Wait for rollout
-   kubectl rollout status deployment/aether-vault
-   ```
-
-### 🔧 **Production Monitoring**
-
-```bash
-# Enable monitoring stack
-docker-compose -f monitoring/docker-compose.monitoring.yml up -d
-
-# Configure alerts
-# Add alerting rules in monitoring/prometheus.yml
-```
-
-### 📋 **Health Checks**
-
-```bash
-# Check application health
-curl http://localhost:3000/health
-
-# Check service health
-kubectl get pods -l app=aether-vault
-
-# Check Redis connectivity
-docker-compose -f docker-compose.yml exec redis redis-cli ping
-```
-
----
-
-## 📁 Directory Structure
-
-```
-infrastructure/
-├── docker/                    # 🐳 Docker Configuration
-│   ├── Dockerfile            # Production build
-│   ├── Dockerfile.dev        # Development build
-│   ├── docker-compose.yml    # Production orchestration
-│   ├── docker-compose.dev.yml # Development orchestration
-│   ├── docker-entrypoint.sh  # Production entry script
-│   └── docker-entrypoint-dev.sh # Development entry script
-├── k8s/                      # ☸️ Kubernetes Manifests
-│   ├── deployment.yaml       # Application deployment
-│   ├── service.yaml          # Service configuration
-│   ├── configmap.yaml        # Configuration management
-│   ├── ingress.yaml          # Ingress routing
-│   └── README.md             # Kubernetes documentation
-├── redis/                    # 🗄️ Redis Configuration
-│   ├── redis.conf            # Base Redis configuration
-│   ├── redis-dev.conf        # Development settings
-│   ├── redis-prod.conf       # Production settings
-│   ├── redis-test.conf       # Testing settings
-│   └── README.md             # Redis documentation
-├── monitoring/               # 📊 Monitoring Stack
-│   ├── prometheus.yml        # Prometheus configuration
-│   ├── grafana/              # Grafana setup
-│   │   └── provisioning/    # Auto-provisioning
-│   │       └── datasources/  # Data sources
-│   ├── loki.yml              # Log aggregation config
-│   ├── promtail.yml          # Log shipping config
-│   ├── docker-compose.monitoring.yml # Monitoring stack
-│   └── README.md             # Monitoring documentation
-├── package.json              # Infrastructure scripts
-└── README.md                 # This file
-```
-
----
-
-## 🔧 Configuration
-
-### 🐳 Docker Environment Variables
-
-```bash
-# .env.production
-NODE_ENV=production
+# 🚀 Application Configuration
+NODE_ENV=development
 PORT=3000
-REDIS_URL=redis://redis:6379
-DATABASE_URL=postgresql://user:pass@postgres:5432/aethervault
-LOG_LEVEL=info
+HOSTNAME=0.0.0.0
+
+# 🔐 Authentication
+JWT_SECRET=your-super-secure-jwt-secret-here
+ACCESS_TOKEN_EXP=15
+REFRESH_TOKEN_EXP=720
+
+# 🗄️ Database Configuration
+DATABASE_URL=postgresql://postgres:postgres@localhost:5432/aether_identity
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+POSTGRES_DB=aether_identity
+
+# 🗄️ Redis Configuration
+REDIS_HOST=localhost
+REDIS_PORT=6379
+REDIS_PASSWORD=aether-redis-2025
+REDIS_DB=0
+REDIS_MAX_MEMORY=512mb
+REDIS_SESSION_TTL=86400
+REDIS_CACHE_TTL=3600
+
+# 📊 Monitoring Configuration
+PROMETHEUS_URL=http://localhost:9090
+GRAFANA_URL=http://localhost:3000
+LOKI_URL=http://localhost:3100
+
+# 🌐 Network Configuration
+NEXT_PUBLIC_API_URL=http://localhost:8080
+CORS_ORIGIN=http://localhost:3000
+
+# 🐳 Docker Configuration
+DOCKER_REGISTRY=ghcr.io/skygenesisenterprise
+DOCKER_TAG=latest
 ```
 
-### ☸️ Kubernetes ConfigMaps
+### 🔧 **Terraform Configuration**
+
+```bash
+# Initialize Terraform
+make terraform-init
+
+# Plan infrastructure changes
+make terraform-plan
+
+# Apply infrastructure
+make terraform-apply
+
+# Destroy infrastructure
+make terraform-destroy
+```
+
+---
+
+## 🛡️ Security
+
+### ✅ **Security Checklist**
+
+- [ ] **Container Security** - Minimal base images and security scanning
+- [ ] **Network Isolation** - Private networks and firewall rules
+- [ ] **Secret Management** - Encrypted secrets and IAM roles
+- [ ] **Access Control** - RBAC and principle of least privilege
+- [ ] **Monitoring** - Security event logging and alerting
+- [ ] **Backup Strategy** - Automated backups and disaster recovery
+- [ ] **Compliance** - GDPR, SOC2, and industry standards
+- [ ] **Regular Updates** - Container images and dependencies
+- [ ] **Vulnerability Scanning** - Regular security assessments
+- [ ] **Incident Response** - Security incident procedures
+
+### 🔒 **Security Features**
+
+#### **Container Security**
+
+```dockerfile
+# Multi-stage builds for minimal attack surface
+FROM node:18-alpine AS builder
+# Build process...
+
+FROM node:18-alpine AS runtime
+RUN addgroup -g 1001 -S nodejs && adduser -S nodejs -u 1001
+USER nodejs
+# Security configurations...
+```
+
+#### **Network Security**
 
 ```yaml
-apiVersion: v1
-kind: ConfigMap
+# Docker Compose network isolation
+networks:
+  aether-network:
+    driver: bridge
+    internal: true
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+```
+
+#### **Kubernetes Security**
+
+```yaml
+# Pod security policies
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
 metadata:
-  name: aether-vault-config
-data:
-  NODE_ENV: "production"
-  PORT: "3000"
-  REDIS_URL: "redis://redis-service:6379"
+  name: aether-app-psp
+spec:
+  privileged: false
+  allowPrivilegeEscalation: false
+  requiredDropCapabilities:
+    - ALL
+  volumes:
+    - "configMap"
+    - "emptyDir"
+    - "projected"
+    - "secret"
+    - "downwardAPI"
+    - "persistentVolumeClaim"
 ```
 
-### 🗄️ Redis Configuration
+---
+
+## 🔧 Troubleshooting
+
+### 🚨 **Common Issues**
+
+#### 1. **Container Startup Failures**
 
 ```bash
-# Performance tuning
-maxmemory 2gb
-maxmemory-policy allkeys-lru
+# Check container logs
+docker-compose logs aether-app
 
-# Persistence
-save 900 1
-save 300 10
-save 60 10000
+# Validate configuration
+docker-compose config
 
-# Security
-requirepass your-secure-password
+# Health check status
+docker-compose ps
 ```
 
----
-
-## 📊 Performance & Scaling
-
-### 🚀 **Performance Optimizations**
-
-- **Docker Multi-stage Builds** - Minimal production images
-- **Redis Caching** - High-performance data caching
-- **Kubernetes HPA** - Horizontal pod autoscaling
-- **Load Balancing** - Distribute traffic efficiently
-
-### 📈 **Scaling Strategies**
+#### 2. **Database Connection Issues**
 
 ```bash
-# Docker Compose scaling
-docker-compose -f docker-compose.yml up -d --scale app=3
+# Test database connectivity
+docker-compose exec postgres psql -U postgres -d aether_identity
 
-# Kubernetes scaling
-kubectl scale deployment aether-vault --replicas=5
+# Check database logs
+docker-compose logs postgres
 
-# Horizontal Pod Autoscaler
-kubectl autoscale deployment aether-vault --cpu-percent=70 --min=2 --max=10
+# Restart database service
+docker-compose restart postgres
 ```
 
-### 🔍 **Monitoring Metrics**
-
-- **Application Performance** - Response times, error rates
-- **Resource Usage** - CPU, memory, disk, network
-- **Cache Performance** - Redis hit rates, memory usage
-- **Container Health** - Uptime, restarts, resource limits
-
----
-
-## 🔒 Security
-
-### 🛡️ **Security Measures**
-
-- **Container Security** - Non-root users, read-only filesystems
-- **Network Security** - Firewalls, VPN access
-- **Secrets Management** - Kubernetes secrets, environment variables
-- **Redis Authentication** - Password protection, TLS encryption
-
-### 🔐 **Security Configuration**
+#### 3. **Redis Connection Problems**
 
 ```bash
-# Docker security
-USER node
-RUN chmod -R 755 /app
-HEALTHCHECK --interval=30s --timeout=3s --retries=3
+# Test Redis connectivity
+docker-compose exec redis redis-cli ping
 
-# Redis security
-requirepass ${REDIS_PASSWORD}
-tls-cert-file /path/to/cert.pem
-tls-key-file /path/to/key.pem
+# Check Redis logs
+docker-compose logs redis
+
+# Monitor Redis metrics
+docker-compose exec redis redis-cli info memory
+```
+
+#### 4. **Kubernetes Deployment Issues**
+
+```bash
+# Check pod status
+kubectl get pods -n aether-identity
+
+# View pod logs
+kubectl logs -f deployment/aether-app -n aether-identity
+
+# Describe pod issues
+kubectl describe pod <pod-name> -n aether-identity
+```
+
+### 🐛 **Debug Mode**
+
+```bash
+# Enable debug logging
+export DEBUG=aether:*
+export NODE_ENV=development
+
+# Start services with debug
+docker-compose -f docker/docker-compose.dev.yml up
+
+# Monitor in real-time
+docker-compose logs -f --tail=100
 ```
 
 ---
 
-## 🤝 Contributing
+## 📚 Documentation References
 
-We welcome contributions to the infrastructure layer! Whether you're experienced with Docker, Kubernetes, monitoring, or DevOps, there's a place for you.
+### 📖 **Component Documentation**
 
-### 🎯 **Areas Needing Help**
+- **[Redis Configuration](redis/README.md)** - Comprehensive Redis setup and usage
+- **[Docker Configuration](docker/README.md)** - Container deployment and management
+- **[Kubernetes Guide](k8s/README.md)** - Cloud-native deployment instructions
+- **[Monitoring Stack](monitoring/README.md)** - Observability and alerting setup
+- **[Security Guidelines](SECURITY.md)** - Security best practices and policies
 
-- **Docker Optimization** - Multi-stage builds, security hardening
-- **Kubernetes Expertise** - Advanced manifests, Helm charts
-- **Monitoring Enhancement** - Custom dashboards, alerting rules
-- **Performance Tuning** - Redis optimization, scaling strategies
-- **Security Hardening** - Container security, network policies
-- **Documentation** - Configuration guides, deployment tutorials
+### 🔗 **External Resources**
 
-### 📝 **Contribution Process**
-
-1. **Choose an area** - Docker, Kubernetes, monitoring, or Redis
-2. **Understand the structure** - Read existing configurations
-3. **Create a branch** with descriptive infrastructure changes
-4. **Test locally** with Docker Compose before deployment
-5. **Update documentation** for any new configurations
-6. **Submit a pull request** with clear testing instructions
+- **[Docker Documentation](https://docs.docker.com/)** - Container platform documentation
+- **[Kubernetes Documentation](https://kubernetes.io/docs/)** - Orchestration platform guides
+- **[Redis Documentation](https://redis.io/documentation)** - In-memory data store docs
+- **[Terraform Documentation](https://www.terraform.io/docs/)** - Infrastructure as code
+- **[Prometheus Documentation](https://prometheus.io/docs/)** - Monitoring and alerting
+- **[Grafana Documentation](https://grafana.com/docs/)** - Visualization platform
 
 ---
 
-## 📞 Support
+## 🎯 Conclusion
 
-### 💬 **Get Help**
+The **Aether Identity Infrastructure** package provides a comprehensive, production-ready foundation for deploying the Aether Identity platform across development, staging, and production environments. With Docker containerization, Kubernetes orchestration, Redis caching, and complete monitoring capabilities, this infrastructure stack ensures reliable, secure, and scalable deployments.
 
-- 📖 **[Infrastructure Documentation](infrastructure/)** - Detailed guides
-- 🐛 **[GitHub Issues](https://github.com/skygenesisenterprise/aether-vault/issues)** - Infrastructure bugs
-- 💡 **[GitHub Discussions](https://github.com/skygenesisenterprise/aether-vault/discussions)** - Questions and ideas
-- 📧 **Email** - infra@skygenesisenterprise.com
+### 🔥 **Key Benefits**
 
-### 🐛 **Reporting Infrastructure Issues**
-
-When reporting infrastructure issues, please include:
-
-- Environment details (Docker version, Kubernetes version, OS)
-- Configuration files (redacted sensitive data)
-- Service logs and error messages
-- Steps to reproduce the issue
-- Expected vs actual behavior
-
----
-
-## 📊 Component Status
-
-| Component          | Status     | Technology     | Configuration    | Notes                    |
-| ------------------ | ---------- | -------------- | ---------------- | ------------------------ |
-| **Docker**         | ✅ Working | Docker         | Multi-stage      | Production-ready builds  |
-| **Docker Compose** | ✅ Working | Docker Compose | Dev/Prod         | Complete orchestration   |
-| **Kubernetes**     | ✅ Working | K8s            | Manifests        | Full deployment support  |
-| **Redis**          | ✅ Working | Redis 7        | Multi-env        | High-performance caching |
-| **Prometheus**     | ✅ Working | Prometheus     | Metrics config   | Complete monitoring      |
-| **Grafana**        | ✅ Working | Grafana        | Dashboards       | Beautiful visualization  |
-| **Loki**           | ✅ Working | Loki           | Log aggregation  | Centralized logging      |
-| **Promtail**       | ✅ Working | Promtail       | Log shipping     | Efficient log collection |
-| **Health Checks**  | ✅ Working | Docker/K8s     | Readiness probes | Service monitoring       |
-
----
-
-## 📄 License
-
-This infrastructure is licensed under the **MIT License** - see the [LICENSE](../LICENSE) file for details.
-
----
-
-## 🙏 Acknowledgments
-
-- **Docker Team** - Container platform and tools
-- **Kubernetes Community** - Orchestration platform
-- **Redis Labs** - High-performance caching
-- **Prometheus Team** - Monitoring and alerting
-- **Grafana Labs** - Visualization platform
-- **Loki Project** - Log aggregation system
-- **CNCF** - Cloud Native Computing Foundation
+- **🚀 Production Ready** - Enterprise-grade configurations and security
+- **🐳 Container Native** - Modern deployment with Docker and Kubernetes
+- **📊 Fully Observable** - Complete monitoring and alerting stack
+- **🔄 Environment Management** - Consistent configs across all environments
+- **🛡️ Security First** - Hardened configurations and best practices
+- **🔧 Developer Friendly** - Comprehensive documentation and tooling
 
 ---
 
 <div align="center">
 
-### 🚀 **Production-Ready Infrastructure for Aether Vault!**
+### 🏗️ **Building the Foundation for Modern Identity Management**
 
-[⭐ Star This Repo](https://github.com/skygenesisenterprise/aether-vault) • [🐛 Report Issues](https://github.com/skygenesisenterprise/aether-vault/issues) • [💡 Infrastructure Discussions](https://github.com/skygenesisenterprise/aether-vault/discussions)
+[🐳 Docker Deployment](docker/) • [☸️ Kubernetes Orchestration](k8s/) • [🗄️ Redis Caching](redis/) • [📊 Monitoring Stack](monitoring/)
 
 ---
 
-**🔧 Complete Docker + Kubernetes + Monitoring + Caching Infrastructure!**
-
-**Made with ❤️ by the [Sky Genesis Enterprise](https://skygenesisenterprise.com) team**
-
-_Building robust infrastructure for modern applications_
+**Made with ❤️ for the Aether Identity ecosystem**
 
 </div>

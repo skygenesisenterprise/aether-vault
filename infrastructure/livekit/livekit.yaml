@@ -1,0 +1,16 @@
+# Template rendered at container start by render-livekit-config.sh.
+port: ${LIVEKIT_PORT}
+bind_addresses:
+  - 0.0.0.0
+rtc:
+  tcp_port: ${LIVEKIT_RTC_TCP_PORT}
+  port_range_start: ${LIVEKIT_RTP_PORT_MIN}
+  port_range_end: ${LIVEKIT_RTP_PORT_MAX}
+redis:
+  address: ${LIVEKIT_REDIS_ADDRESS}
+  password: ${LIVEKIT_REDIS_PASSWORD}
+keys:
+  ${LIVEKIT_KEYS}
+webhook:
+  urls:
+    - ${LIVEKIT_WEBHOOK_URL}
