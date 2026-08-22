@@ -1,7 +1,7 @@
 {
-  "package": "@guilderia/infrastructure",
+  "package": "@aether-vault/infrastructure",
   "version": "1.0.0",
-  "description": "Infrastructure and deployment configuration for Aether Account",
+  "description": "Infrastructure and deployment configuration for Aether Vault",
   "main": "index.js",
   "scripts": {
     "build": "echo 'No build process for infrastructure'",
@@ -34,11 +34,11 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/skygenesisenterprise/aether-account.git",
+    "url": "https://github.com/skygenesisenterprise/aether-vault.git",
     "directory": "infrastructure"
   },
   "bugs": {
-    "url": "https://github.com/skygenesisenterprise/aether-account/issues"
+    "url": "https://github.com/skygenesisenterprise/aether-vault/issues"
   },
-  "homepage": "https://github.com/skygenesisenterprise/aether-account/tree/main/infrastructure"
+  "homepage": "https://github.com/skygenesisenterprise/aether-vault/tree/main/infrastructure"
 }

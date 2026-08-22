@@ -18,11 +18,11 @@ const publicSans = Public_Sans({
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | Guilderia",
-    default: "Guilderia",
+    template: "%s | Aether Vault",
+    default: "Aether Vault",
   },
   description:
-    "A self-hostable, open-source communication platform built as a sovereign alternative to Discord.",
+    "An open-source secrets and TOTP vault designed as a security control plane for developers.",
   icons: {
     icon: [
       {

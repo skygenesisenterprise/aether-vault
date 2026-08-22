@@ -5,9 +5,7 @@
   "private": true,
   "type": "module",
   "workspaces": [
-    "app",
-    "tools",
-    "options",
+    "apps",
     "package/node",
     "package/github",
     "package/vscode",
