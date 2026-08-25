@@ -60,7 +60,7 @@
     "@radix-ui/react-toast": "1.2.16",
     "@radix-ui/react-toggle": "1.1.11",
     "@radix-ui/react-toggle-group": "1.1.11",
-    "@radix-ui/react-tooltip": "1.2.8",
+    "@radix-ui/react-tooltip": "1.2.16",
     "@vercel/analytics": "^2.0.1",
     "@vidstack/react": "^0.6.15",
     "aether-identity": "^1.0.11",
