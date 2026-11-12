@@ -58,7 +58,7 @@
     "eslint": "^9",
     "husky": "^9.0.11",
     "lint-staged": "^16.2.7",
-    "prettier": "^3.8.1",
+    "prettier": "^3.9.10",
     "prisma": "7.2.0",
     "typescript": "^5"
   },
